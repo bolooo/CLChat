@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e2e2e2"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/return_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#e2e2e2"
+        android:src="@drawable/return_login" />
+
+    <ImageView
+        android:layout_width="113dp"
+        android:layout_height="89dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/registered" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginRight="23dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名："
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="长度大于3可为字母数字"
+                android:maxLength="11"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#dedede" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="密码："
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="长度大于6小于16可为字母数字"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#dedede" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确认密码："
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/password_again"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请再次输入密码"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#dedede" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="18dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/verify_on"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码" />
+
+            <ImageButton
+                android:id="@+id/verify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/login_upok"-->
+    <!--style="@style/enter_textview"-->
+    <!--android:text="@string/loginTitle"-->
+    <!--/>-->
+    <!--最下面的一行-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="211dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/go_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:width="260dp"
+            android:background="@drawable/bt_shape"
+            android:text="确定注册" />
+
+    </RelativeLayout>
+</LinearLayout>

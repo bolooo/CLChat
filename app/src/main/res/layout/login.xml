@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#e2e2e2"
+android:orientation="vertical">
+
+<ImageView
+    android:layout_width="110dp"
+    android:layout_height="83dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="36dp"
+    android:src="@drawable/login"
+    />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:layout_marginLeft="23dp"
+    android:layout_marginRight="23dp"
+    android:layout_marginTop="73dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <EditText
+            android:gravity="center_vertical"
+            android:id="@+id/login_username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:background="@null"
+            android:hint="请输入用户名/手机号"
+            android:maxLength="11"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dedede"/>
+    <EditText
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:maxLength="20"
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="12dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:hint="请输入密码"
+        android:inputType="textPassword"/>
+</LinearLayout>
+<!--<TextView-->
+<!--android:id="@+id/login_upok"-->
+<!--style="@style/enter_textview"-->
+<!--android:text="@string/loginTitle"-->
+<!--/>-->
+<!--最下面的一行-->
+<RelativeLayout
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginLeft="23dp"
+    android:layout_marginRight="23dp"
+    android:layout_marginTop="25dp"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
+
+        <CheckBox
+            android:id="@+id/login_no_password"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true" />
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:textColor="#134cf5"
+            android:text="记住密码"/>
+        <!--<TextView-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:id="@+id/login_tv_servers"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="@string/register_servicelist"-->
+        <!--android:textColor="#13b8f5"/>-->
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:width="260dp"
+        android:background="@drawable/bt_shape"
+        android:text="确定" />
+    <TextView
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/login_no_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册账号"
+        android:clickable="true"
+        android:textColor="#134cf5"/>
+    <TextView
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/login_to_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码"
+        android:clickable="true"
+        android:textColor="#134cf5" />
+</RelativeLayout>
+</LinearLayout>
