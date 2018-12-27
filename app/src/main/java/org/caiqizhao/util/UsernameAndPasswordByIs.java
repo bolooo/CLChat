@@ -22,7 +22,7 @@ public class UsernameAndPasswordByIs {
      * @return
      */
     public static boolean checkusername(String username){
-        String zz = "[a-zA-Z0-9_]{3,16}";
+        String zz = "[a-zA-Z0-9_]{6,16}";
         return username.matches(zz);
     }
 }

@@ -77,7 +77,7 @@
                 android:gravity="center_vertical"
                 android:hint="长度大于6小于16可为字母数字"
                 android:inputType="textPassword"
-                android:maxLength="20"
+                android:maxLength="16"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -108,7 +108,7 @@
                 android:gravity="center_vertical"
                 android:hint="请再次输入密码"
                 android:inputType="textPassword"
-                android:maxLength="20"
+                android:maxLength="16"
                 android:textSize="18sp" />
         </LinearLayout>
         <View

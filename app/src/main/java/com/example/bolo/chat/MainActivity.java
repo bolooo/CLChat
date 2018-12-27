@@ -4,8 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,26 +25,46 @@ import org.caiqizhao.util.UsernameAndPasswordByIs;
 
 
 public class MainActivity extends AppCompatActivity {
-
     private Button go; //登陆
-
     private CheckBox login_no_password; //记住密码
-
     private TextView username,password; //账户密码输入框
-
     private TextView register,login_to_password; //注册以及忘记密码
-
     private String user_name=null,user_password=null;
-
     public static Handler handler; //消息接收
+    private Fragment chats;
+    private Fragment contacks;
+    private Fragment me;
 
+    /**
+     * 注册底部控件响应事件
+     */
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_Chats:
+                    replaceFragment(chats);
+                    return true;
+                case R.id.navigation_Contacts:
+                    replaceFragment(contacks);
+                    return true;
+                case R.id.navigation_Me:
+                    replaceFragment(me);
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-
+        //setContentView(R.layout.login);
+        setContentView(R.layout.activity_main);
+        initFragment();
+        /*
         go = findViewById(R.id.login_go);
         login_no_password = findViewById(R.id.login_no_password);
         username = findViewById(R.id.login_username);
@@ -50,6 +77,31 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new register_Click());
 
         handler = new MessageUtil();
+        */
+    }
+
+
+    /**
+     * 初始化fragment
+     */
+    public void initFragment(){
+        chats = new Chats();
+        contacks = new Contacks();
+        me = new Me();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,chats).show(chats).commit();
+    }
+
+    /**
+     * fragment替换事件
+     * @param fragment
+     */
+    public void replaceFragment(Fragment fragment){
+        FragmentManager ft = getSupportFragmentManager();
+        FragmentTransaction ftr= ft.beginTransaction();
+        ftr.replace(R.id.main_frame, fragment);
+        ftr.commit();
     }
 
     /**
@@ -61,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(MainActivity.this, Register.class);
             startActivity(intent);
-
         }
     }
 
