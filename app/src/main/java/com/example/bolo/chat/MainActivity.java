@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //setContentView(R.layout.login);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login);
+//        setContentView(R.layout.activity_main);
         //initFragment();
-        /*
+
         go = findViewById(R.id.login_go);
         login_no_password = findViewById(R.id.login_no_password);
         username = findViewById(R.id.login_username);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new register_Click());
 
         handler = new MessageUtil();
-        */
+
     }
 
 
