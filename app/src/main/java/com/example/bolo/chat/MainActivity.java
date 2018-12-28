@@ -2,28 +2,32 @@ package com.example.bolo.chat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
 import org.caiqizhao.activity.Register;
-import org.caiqizhao.fragment.Chats;
-import org.caiqizhao.fragment.Contacks;
-import org.caiqizhao.fragment.Me;
+import org.caiqizhao.entity.User;
+import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.service.LoginService;
 import org.caiqizhao.util.ToastUtil;
 import org.caiqizhao.util.UsernameAndPasswordByIs;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -149,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 消息处理内部类
      */
+    @SuppressLint("HandlerLeak")
     private class MessageUtil extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -156,10 +161,49 @@ public class MainActivity extends AppCompatActivity {
             Bundle data = msg.getData();
             String str = data.getString("login");
             if(msg.what == 0x003){
-                //获得消息中的数据并显示
+                Gson gson = new Gson();
+
+                //解开第一层
+                JsonObject jsonObject = new JsonParser().parse(str).getAsJsonObject();
+
+                //得到用户信息
+                JsonElement user = jsonObject.get("user");
+                User.user = gson.fromJson(user,User.class);
+
+
+                //得到好友信息
+                JsonArray user_friend = jsonObject.getAsJsonArray("friend_name");
+                if(user_friend!=null){
+                    UserFriend.userFriendList = gson.fromJson(user_friend,new TypeToken<List<UserFriend>>(){}.getType());
+                }
+
+
+
+                //得道聊天记录
+                jsonObject = jsonObject.getAsJsonObject("friend_message");
+                if(jsonObject!=null){
+                    //跟哪些朋友有聊天记录
+                    JsonArray message_friend_id = jsonObject.getAsJsonArray("message_friend_id");
+                    List<String> stringList = gson.fromJson(message_friend_id,new TypeToken<List<String>>(){}.getType());
+
+                    //循环分别得到好友的聊天记录
+                    for (String s:stringList){
+                        JsonArray message = jsonObject.getAsJsonArray(s);
+                        ArrayList<org.caiqizhao.entity.Message> messageList =
+                                gson.fromJson(message,new TypeToken<List<org.caiqizhao.entity.Message>>(){}.getType());
+                        org.caiqizhao.entity.Message.messageHasMap
+                                .put(s, messageList);
+                        messageList.clear();
+                    }
+                }
+
+
             }else {
+                //获得消息中的数据并显示
                 ToastUtil.showToast(MainActivity.this,str);
             }
         }
     }
+
+//    public void
 }
