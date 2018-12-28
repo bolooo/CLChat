@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +18,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.caiqizhao.activity.Register;
+import org.caiqizhao.fragment.Chats;
+import org.caiqizhao.fragment.Contacks;
+import org.caiqizhao.fragment.Me;
 import org.caiqizhao.service.LoginService;
 import org.caiqizhao.util.ToastUtil;
 import org.caiqizhao.util.UsernameAndPasswordByIs;
@@ -38,32 +40,33 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 注册底部控件响应事件
      */
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_Chats:
-                    replaceFragment(chats);
-                    return true;
-                case R.id.navigation_Contacts:
-                    replaceFragment(contacks);
-                    return true;
-                case R.id.navigation_Me:
-                    replaceFragment(me);
-                    return true;
-            }
-            return false;
-        }
-    };
+//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//            switch (item.getItemId()) {
+//                case R.id.navigation_Chats:
+//                    replaceFragment(chats);
+//                    return true;
+//                case R.id.navigation_Contacts:
+//                    replaceFragment(contacks);
+//                    return true;
+//                case R.id.navigation_Me:
+//                    replaceFragment(me);
+//                    return true;
+//            }
+//            return false;
+//        }
+//    };
 
     @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //setContentView(R.layout.login);
         setContentView(R.layout.activity_main);
-        initFragment();
+        //initFragment();
         /*
         go = findViewById(R.id.login_go);
         login_no_password = findViewById(R.id.login_no_password);
@@ -84,25 +87,25 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 初始化fragment
      */
-    public void initFragment(){
-        chats = new Chats();
-        contacks = new Contacks();
-        me = new Me();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,chats).show(chats).commit();
-    }
+//    public void initFragment(){
+//        chats = new Chats();
+//        contacks = new Contacks();
+//        me = new Me();
+//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,chats).show(chats).commit();
+//    }
 
-    /**
-     * fragment替换事件
-     * @param fragment
-     */
-    public void replaceFragment(Fragment fragment){
-        FragmentManager ft = getSupportFragmentManager();
-        FragmentTransaction ftr= ft.beginTransaction();
-        ftr.replace(R.id.main_frame, fragment);
-        ftr.commit();
-    }
+//    /**
+//     * fragment替换事件
+//     * @param fragment
+//     */
+//    public void replaceFragment(Fragment fragment){
+//        FragmentManager ft = getSupportFragmentManager();
+//        FragmentTransaction ftr= ft.beginTransaction();
+//        ftr.replace(R.id.main_frame, fragment);
+//        ftr.commit();
+//    }
 
     /**
      * 注册按钮响应时间
@@ -149,13 +152,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(msg.what == 0x001){
+            Bundle data = msg.getData();
+            String str = data.getString("login");
+            if(msg.what == 0x003){
                 //获得消息中的数据并显示
-                Bundle data = msg.getData();
-                String str = data.getString("login");
+            }else {
                 ToastUtil.showToast(MainActivity.this,str);
-            }else if(msg.what == 0x002){
-
             }
         }
     }

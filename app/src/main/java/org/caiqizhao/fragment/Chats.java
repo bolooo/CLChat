@@ -1,4 +1,4 @@
-package com.example.bolo.chat;
+package org.caiqizhao.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Contacks extends Fragment {
+import com.example.bolo.chat.R;
+
+public class Chats extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.contacks, container, false);
-        Log.v("fragment", "friendlist");
+        View view = inflater.inflate(R.layout.chats, container, false);
+        Log.v("fragment", "chatview");
         return view;
     }
 }

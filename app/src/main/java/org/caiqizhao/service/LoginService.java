@@ -8,6 +8,8 @@ import android.os.Message;
 
 import com.example.bolo.chat.MainActivity;
 
+import org.caiqizhao.util.VariableUtil;
+
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -42,26 +44,26 @@ public class LoginService extends Service {
                         .add("password",password)
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://192.168.253.5:8080/login")
+                        .url(VariableUtil.Service_IP +"login")
                         .post(requestBody)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();
                     String str = response.body().string();
 
-                    if(!str.equals("登陆成功")){
-                        Message message = new Message();
+                    Message message = new Message();
+                    Bundle data = new Bundle();
+                    data.putString("login",str);
+                    message.setData(data);
+                    if(str.equals("密码错误")){
                         message.what = 0x001;
-                        Bundle data = new Bundle();
-                        data.putString("login",str);
-                        message.setData(data);
+                        MainActivity.handler.sendMessage(message);
+                    }else if (str.equals("账户不存在")){
+                        message.what = 0x002;
                         MainActivity.handler.sendMessage(message);
                     }else {
-                        Message message = new Message();
-                        message.what = 0x002;
-                        Bundle data = new Bundle();
-                        data.putString("login",str);
-                        message.setData(data);
+                        System.out.println(str);
+                        message.what = 0x003;
                         MainActivity.handler.sendMessage(message);
                     }
                 } catch (IOException e) {
@@ -72,6 +74,4 @@ public class LoginService extends Service {
         login.start();
         return START_STICKY;
     }
-
-
 }

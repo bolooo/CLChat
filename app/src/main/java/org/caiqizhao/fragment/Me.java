@@ -1,4 +1,4 @@
-package com.example.bolo.chat;
+package org.caiqizhao.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.bolo.chat.R;
 
 public class Me extends Fragment {
     @Nullable

@@ -2,27 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:background="@drawable/message_lef"
     tools:context=".MainActivity">
 
-
-    <FrameLayout
-        android:id="@+id/main_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-    </FrameLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="8"
-        app:menu="@menu/navigation" />
-
-
-
 </LinearLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:orientation="vertical"-->
+    <!--tools:context=".MainActivity">-->
+
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/main_frame"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1">-->
+
+    <!--</FrameLayout>-->
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/bottom_navigation_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="8"-->
+        <!--app:menu="@menu/navigation" />-->
+
+
+
+<!--</LinearLayout>-->
