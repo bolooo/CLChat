@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 注册底部控件响应事件
-     * SBLH
+     * taobolisb
      */
 //    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
 //            = new BottomNavigationView.OnNavigationItemSelectedListener() {
