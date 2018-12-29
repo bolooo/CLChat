@@ -29,6 +29,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okio:okio:1.14.0'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.github.xujiaji:happy-bubble:1.1.6'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.leon:lfilepickerlibrary:1.8.0'
 }

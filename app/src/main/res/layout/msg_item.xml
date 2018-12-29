@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="left|center"
+        android:src="@drawable/reciever"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+
+        <com.xujiaji.happybubble.BubbleLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            app:bubbleColor="@android:color/holo_blue_light"
+            app:lookAt="left"
+            app:lookLength="10dp"
+            app:lookPosition="20dp"
+            app:lookWidth="15dp">
+
+            <TextView
+                android:maxWidth="230dp"
+                android:id="@+id/left_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
+
+        </com.xujiaji.happybubble.BubbleLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <com.xujiaji.happybubble.BubbleLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bubbleColor="@android:color/holo_blue_light"
+            app:lookAt="right"
+            app:lookLength="10dp"
+            app:lookPosition="20dp"
+            app:lookWidth="15dp">
+
+            <TextView
+                android:maxWidth="230dp"
+                android:id="@+id/right_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
+
+        </com.xujiaji.happybubble.BubbleLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sender"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="right|center"
+            android:src="@drawable/sender"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+        
+    </LinearLayout>
+</LinearLayout>
