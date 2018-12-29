@@ -18,9 +18,6 @@ import org.caiqizhao.fragment.Me;
 
 public class Main extends AppCompatActivity {
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
