@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private String user_name=null,user_password=null;
     public static Handler handler; //消息接收
 
-
-
     @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
