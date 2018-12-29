@@ -35,6 +35,7 @@ public class LoginService extends Service {
         Bundle data = intent.getExtras();
         final String username = data.getString("username");
         final String password = data.getString("password");
+        final String user_ip = data.getString("user_ip");
         login = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -42,6 +43,7 @@ public class LoginService extends Service {
                 RequestBody requestBody = new FormBody.Builder()
                         .add("username",username)
                         .add("password",password)
+                        .add("user_ip",user_ip)
                         .build();
                 Request request = new Request.Builder()
                         .url(VariableUtil.Service_IP +"login")
@@ -62,10 +64,10 @@ public class LoginService extends Service {
                         message.what = 0x002;
                         MainActivity.handler.sendMessage(message);
                     }else {
-                        System.out.println(str);
                         message.what = 0x003;
                         MainActivity.handler.sendMessage(message);
                     }
+                    stopSelf();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
