@@ -19,13 +19,14 @@ import org.caiqizhao.entity.Message;
 import org.caiqizhao.entity.MessageListEntity;
 import org.caiqizhao.entity.UserFriend;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public class Chats extends Fragment {
 
+    public List<MessageListEntity> messageListEntities = new ArrayList<MessageListEntity>();
     private View view;
     public static Context context;
 
@@ -40,21 +41,21 @@ public class Chats extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Set<String> strings = Message.messageHasMap.keySet();
 
-
+        System.out.println(strings);
         for(String friend_id:strings) {
             int i = Collections.binarySearch(UserFriend.userFriendList,friend_id);
             if (i >= 0) {
                 MessageListEntity messageListEntity = new MessageListEntity(UserFriend.userFriendList.get(i),
                         Message.messageHasMap.get(friend_id));
-                MessageListEntity.messageListEntities.add(messageListEntity);
+                messageListEntities.add(messageListEntity);
 
             }
         }
-
+        Collections.sort(messageListEntities);
         RecyclerView message_list = view.findViewById(R.id.message_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         message_list.setLayoutManager(linearLayoutManager);
-        MessageListAdepter messageListAdepter = new MessageListAdepter(MessageListEntity.messageListEntities);
+        MessageListAdepter messageListAdepter = new MessageListAdepter(messageListEntities);
         message_list.setAdapter(messageListAdepter);
     }
 

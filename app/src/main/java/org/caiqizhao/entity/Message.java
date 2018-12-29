@@ -6,15 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Message{
-    private Integer message_no;
-    private String user_id;
-    private String friend_id;
-    private Integer message_state;
-    private Integer put_id;
-    private String message;
-    private String time;
+    private int message_no;    //消息编号
+    private String user_id;        //用户的id
+    private String friend_id;      //好友ID
+    private int message_state; //已读状态 1为已读 0为未读
+    private int put_id;        //1为我发，0为对方发
+    private String message;        //消息主体
+    private String time;           //时间
 
+
+    //哈希表 key为好友账号,value为关联好友的消息列表
     public static HashMap<String,List<Message>> messageHasMap = new HashMap<String,List<Message>>();
+
+
     @Override
     public String toString() {
         return "Message{" +
@@ -30,11 +34,11 @@ public class Message{
 
 
 
-    public Integer getMessage_no() {
+    public int getMessage_no() {
         return message_no;
     }
 
-    public void setMessage_no(Integer message_no) {
+    public void setMessage_no(int message_no) {
         this.message_no = message_no;
     }
 
@@ -54,19 +58,19 @@ public class Message{
         this.friend_id = friend_id;
     }
 
-    public Integer getMessage_state() {
+    public int getMessage_state() {
         return message_state;
     }
 
-    public void setMessage_state(Integer message_state) {
+    public void setMessage_state(int message_state) {
         this.message_state = message_state;
     }
 
-    public Integer getPut_id() {
+    public int getPut_id() {
         return put_id;
     }
 
-    public void setPut_id(Integer put_id) {
+    public void setPut_id(int put_id) {
         this.put_id = put_id;
     }
 
