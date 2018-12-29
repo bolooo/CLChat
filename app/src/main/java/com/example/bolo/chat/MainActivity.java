@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Fragment chats;
     private Fragment contacks;
-    private Fragment me;
+    private Fragment me;//
     /**
      * 注册底部控件响应事件
      * taobolisb
