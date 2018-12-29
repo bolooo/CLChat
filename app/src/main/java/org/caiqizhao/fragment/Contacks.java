@@ -14,7 +14,7 @@ import com.example.bolo.chat.R;
 
 public class Contacks extends Fragment {
     private View view;
-    public static Context context;
+    public static Context context;/////
 
     @Override
     public void onAttach(Context context) {
