@@ -40,16 +40,6 @@ public class Chats extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Set<String> strings = Message.messageHasMap.keySet();
 
-//        for(UserFriend userFriend:UserFriend.userFriendList){
-//            System.out.println(userFriend.getFriend_id().length());
-//            List<Message> messageList = Message.messageHasMap.get(userFriend.getFriend_id());
-//            if(messageList==null&&!messageList.isEmpty()) {
-//                MessageListEntity messageListEntity = new MessageListEntity(userFriend,
-//                        messageList);
-//                MessageListEntity.messageListEntities.add(messageListEntity);
-//            }
-//            messageList.clear();
-//        }
 
         for(String friend_id:strings) {
             int i = Collections.binarySearch(UserFriend.userFriendList,friend_id);
