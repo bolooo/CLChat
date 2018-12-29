@@ -28,6 +28,8 @@ public class Message{
                 '}';
     }
 
+
+
     public Integer getMessage_no() {
         return message_no;
     }

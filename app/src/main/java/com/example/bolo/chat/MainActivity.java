@@ -10,7 +10,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -213,11 +212,11 @@ public class MainActivity extends AppCompatActivity {
                     //循环分别得到好友的聊天记录
                     for (String s:stringList){
                         JsonArray message = jsonObject.getAsJsonArray(s);
-                        ArrayList<org.caiqizhao.entity.Message> messageList =
-                                gson.fromJson(message,new TypeToken<List<org.caiqizhao.entity.Message>>(){}.getType());
+                        ArrayList<org.caiqizhao.entity.Message> messageList = new ArrayList<org.caiqizhao.entity.Message>();
+                        messageList = gson.fromJson(message,new TypeToken<List<org.caiqizhao.entity.Message>>(){}.getType());
                         org.caiqizhao.entity.Message.messageHasMap
                                 .put(s, messageList);
-                        messageList.clear();
+
                     }
                 }
 
