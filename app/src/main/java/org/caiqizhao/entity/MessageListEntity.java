@@ -7,10 +7,7 @@ public class MessageListEntity {
     private UserFriend friend;
     private List<Message> messageList;
 
-    public static List<MessageListEntity> messageListEntities = new ArrayList<MessageListEntity>();
-
-
-    public MessageListEntity(UserFriend friend, List<Message> messageList) {
+    public MessageListEntity(UserFriend friend, List<Message> messageList) {  //存放用户朋友id及与其的聊天消息
         this.friend = friend;
         this.messageList = messageList;
     }

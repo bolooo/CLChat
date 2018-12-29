@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bolo.chat.R;
+
+import org.caiqizhao.adapter.FriendListAdapter;
 
 public class Contacks extends Fragment {
     private View view;
@@ -25,7 +29,11 @@ public class Contacks extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        RecyclerView friendlist = view.findViewById(R.id.friend_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        friendlist.setLayoutManager(linearLayoutManager);
+        FriendListAdapter friendListAdapter = new FriendListAdapter();
+        friendlist.setAdapter(friendListAdapter);
     }
 
     @Nullable

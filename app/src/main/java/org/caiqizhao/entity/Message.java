@@ -14,7 +14,9 @@ public class Message{
     private String message;
     private String time;
 
+    //key值为朋友id value为与朋友的所有Message信息且朋友为
     public static HashMap<String,List<Message>> messageHasMap = new HashMap<String,List<Message>>();
+
     @Override
     public String toString() {
         return "Message{" +
