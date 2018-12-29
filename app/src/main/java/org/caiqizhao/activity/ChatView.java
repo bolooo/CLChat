@@ -1,5 +1,7 @@
 package org.caiqizhao.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatView extends AppCompatActivity {
+
     private List<Msg> msgList = new ArrayList<>();
     private EditText inputText;
     private Button send;
     private RecyclerView msgRecyclerView;
     private MsgAdapter adapter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.chatview);
+        initMsgs();
+        setChatView();
+    }
 
     /**
      * 初始化消息数据
