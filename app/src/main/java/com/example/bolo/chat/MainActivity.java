@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 data.putString("password",password.getText().toString());
                 loginservice.putExtras(data);
                 startService(loginservice);
-
             }else {
 
                 ToastUtil.showToast(MainActivity.this,"账户或密码格式不正确");
@@ -210,11 +209,11 @@ public class MainActivity extends AppCompatActivity {
                     //循环分别得到好友的聊天记录
                     for (String s:stringList){
                         JsonArray message = jsonObject.getAsJsonArray(s);
-                        ArrayList<org.caiqizhao.entity.Message> messageList =
-                                gson.fromJson(message,new TypeToken<List<org.caiqizhao.entity.Message>>(){}.getType());
+                        ArrayList<org.caiqizhao.entity.Message> messageList = new ArrayList<org.caiqizhao.entity.Message>();
+                        messageList = gson.fromJson(message,new TypeToken<List<org.caiqizhao.entity.Message>>(){}.getType());
                         org.caiqizhao.entity.Message.messageHasMap
                                 .put(s, messageList);
-                        messageList.clear();
+
                     }
                 }
 

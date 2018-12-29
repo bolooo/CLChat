@@ -17,9 +17,6 @@ import org.caiqizhao.fragment.Me;
 
 public class Main extends AppCompatActivity {
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +25,6 @@ public class Main extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         replaceFragment(new Chats());
     }
-
-
-
 
     /**
      * 注册底部控件响应事件
@@ -54,8 +48,6 @@ public class Main extends AppCompatActivity {
             return false;
         }
     };
-
-
 
     /**
      * fragment替换事件

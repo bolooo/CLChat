@@ -1,9 +1,11 @@
 package org.caiqizhao.entity;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserFriend {
+public class UserFriend implements Comparable<String>{
     private String friend_id;
     private String friend_name;
 
@@ -12,6 +14,9 @@ public class UserFriend {
     public static List<UserFriend> uer_add_friend = new ArrayList<UserFriend>();
 
     public static List<UserFriend> friend_add_user = new ArrayList<UserFriend>();
+
+
+
 
     @Override
     public String toString() {
@@ -35,5 +40,14 @@ public class UserFriend {
 
     public void setFriend_name(String friend_name) {
         this.friend_name = friend_name;
+    }
+
+
+    @Override
+    public int compareTo(@NonNull String o) {
+        if(this.getFriend_id().equals(o))
+            return 0;
+        else
+            return -1;
     }
 }
