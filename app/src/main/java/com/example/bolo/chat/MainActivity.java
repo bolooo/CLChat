@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 data.putString("password",password.getText().toString());
                 loginservice.putExtras(data);
                 startService(loginservice);
-
             }else {
 
                 ToastUtil.showToast(MainActivity.this,"账户或密码格式不正确");
@@ -229,6 +228,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-//
 }
