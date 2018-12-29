@@ -61,6 +61,7 @@ public class RegisterService extends Service {
                         message.what = 2;
                         Register.handler.sendMessage(message);
                     }
+                    stopSelf();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
