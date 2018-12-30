@@ -15,6 +15,7 @@ import com.example.bolo.chat.MainActivity;
 import com.example.bolo.chat.R;
 
 import org.caiqizhao.service.RegisterService;
+import org.caiqizhao.util.PasswordMD5Util;
 import org.caiqizhao.util.ToastUtil;
 import org.caiqizhao.util.UsernameAndPasswordByIs;
 import org.caiqizhao.util.VerityCode;
@@ -100,7 +101,7 @@ public class Register extends AppCompatActivity {
                                     intent = new Intent(Register.this,RegisterService.class);
                                     Bundle data = new Bundle();
                                     data.putString("username",uername.getText().toString());
-                                    data.putString("password",password.getText().toString());
+                                    data.putString("password",PasswordMD5Util.generateMD5(password.getText().toString()));
                                     intent.putExtras(data);
                                     startService(intent);
                                 }else {

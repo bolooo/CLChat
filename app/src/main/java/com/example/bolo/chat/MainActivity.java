@@ -29,6 +29,7 @@ import org.caiqizhao.activity.Register;
 import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.service.LoginService;
+import org.caiqizhao.util.PasswordMD5Util;
 import org.caiqizhao.util.ToastUtil;
 import org.caiqizhao.util.UsernameAndPasswordByIs;
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle data = new Bundle();
                 data.putString("user_ip",getIPAddress(MainActivity.this));
                 data.putString("username",username.getText().toString());
-                data.putString("password",password.getText().toString());
+                data.putString("password",PasswordMD5Util.generateMD5(password.getText().toString()));
                 loginservice.putExtras(data);
                 startService(loginservice);
             }else {
