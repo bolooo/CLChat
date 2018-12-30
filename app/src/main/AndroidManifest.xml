@@ -39,6 +39,12 @@
             android:name="org.caiqizhao.service.UpdateUserDataService"
             android:enabled="true"
             android:exported="true"></service>
+        
+        <activity
+            android:name="org.caiqizhao.activity.SearchActivity"
+            android:theme="@style/SeachViewActivityTheme">
+        </activity>
+
     </application>
 
 </manifest>

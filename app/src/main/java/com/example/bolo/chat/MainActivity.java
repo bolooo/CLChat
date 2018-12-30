@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.login);
-
-
         go = findViewById(R.id.login_go);
         login_no_password = findViewById(R.id.login_no_password);
         username = findViewById(R.id.login_username);
@@ -69,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new register_Click());
 
         handler = new MessageUtil();
+
+        login_to_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, Main.class));
+            }
+        });
 
     }
 

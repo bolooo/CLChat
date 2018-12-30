@@ -21,6 +21,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     private List<UserFriend> FriendList;
 
 
+
     public FriendListAdapter() {
         FriendList = UserFriend.userFriendList;
     }
