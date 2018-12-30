@@ -1,13 +1,21 @@
 package org.caiqizhao.entity;
 
-import java.util.ArrayList;
+import android.support.annotation.NonNull;
+
+import org.caiqizhao.util.CompareTime;
+
+
 import java.util.List;
 
-public class MessageListEntity {
+
+public class MessageListEntity implements Comparable<MessageListEntity> {
     private UserFriend friend;
     private List<Message> messageList;
 
-    public MessageListEntity(UserFriend friend, List<Message> messageList) {  //存放用户朋友id及与其的聊天消息
+
+
+
+    public MessageListEntity(UserFriend friend, List<Message> messageList) {
         this.friend = friend;
         this.messageList = messageList;
     }
@@ -26,5 +34,12 @@ public class MessageListEntity {
 
     public void setMessageList(List<Message> messageList) {
         this.messageList = messageList;
+    }
+
+    @Override
+    public int compareTo(@NonNull MessageListEntity o) {
+
+        return CompareTime.compare_time(this.messageList.get(this.messageList.size()-1).getTime(),
+                o.messageList.get(o.messageList.size()-1).getTime());
     }
 }

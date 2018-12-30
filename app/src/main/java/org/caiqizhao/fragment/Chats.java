@@ -27,9 +27,9 @@ import java.util.Set;
 
 public class Chats extends Fragment {
 
+    public List<MessageListEntity> messageListEntities = new ArrayList<MessageListEntity>();
     private View view;
     public static Context context;
-    public List<MessageListEntity> messageListEntities = new ArrayList<MessageListEntity>();
 
     @Override
     public void onAttach(Context context) {
@@ -51,7 +51,7 @@ public class Chats extends Fragment {
                 messageListEntities.add(messageListEntity);
             }
         }
-
+        Collections.sort(messageListEntities);
         RecyclerView message_list = view.findViewById(R.id.message_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         message_list.setLayoutManager(linearLayoutManager);

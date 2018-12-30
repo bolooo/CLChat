@@ -1,5 +1,6 @@
 package org.caiqizhao.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -23,8 +24,26 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        replaceFragment(new Chats());
+
+        Intent intent = getIntent();
+        int code = intent.getIntExtra("code",1);
+        switch (code){
+            case 1:
+                replaceFragment(new Chats());
+                break;
+
+            case 2:
+                replaceFragment(new Contacks());
+                break;
+            case  3:
+                replaceFragment(new Me());
+                break;
+                default:
+                    replaceFragment(new Chats());
+        }
+
     }
+
 
     /**
      * 注册底部控件响应事件
@@ -48,6 +67,8 @@ public class Main extends AppCompatActivity {
             return false;
         }
     };
+
+
 
     /**
      * fragment替换事件

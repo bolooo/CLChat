@@ -2,11 +2,11 @@ package org.caiqizhao.entity;
 
 public class User {
 
-    private Integer no;
+    private int no;
     private String user_id;
     private String user_name;
     private String user_password;
-    private Integer user_state;
+    private int user_state;
     private String user_sex;
     private String user_introduce;
 
@@ -16,11 +16,11 @@ public class User {
         return user_id;
     }
 
-    public Integer getNo() {
+    public int getNo() {
         return no;
     }
 
-    public void setNo(Integer no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
