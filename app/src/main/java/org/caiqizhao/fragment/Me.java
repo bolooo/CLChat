@@ -2,12 +2,15 @@ package org.caiqizhao.fragment;
 
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +37,14 @@ public class Me extends Fragment {
 
     Intent intent; //用于跳转获得
 
-    public static Context context;  //记录上下文环境
+    private UpdataUserNameFilter updataUserNameFilter; //广播监听器
+
+    public  Context context;  //记录上下文环境
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Chats.context = context;
+        this.context = context;
     }
 
     @Override
@@ -100,6 +105,14 @@ public class Me extends Fragment {
             }
         });
 
+
+        //注册广播接收
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.mycloud.UPDATA_USER");
+        updataUserNameFilter = new UpdataUserNameFilter();
+        localBroadcastManager.registerReceiver(updataUserNameFilter,intentFilter);
+
     }
 
     @Nullable
@@ -107,5 +120,17 @@ public class Me extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.me, container, false);
         return view;
+    }
+
+
+    /**
+     * 监听广播用户名称的变化，并将其显示在相应的TextView中
+     */
+    public class UpdataUserNameFilter extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            user_name.setText(intent.getStringExtra("user_name"));
+        }
     }
 }
