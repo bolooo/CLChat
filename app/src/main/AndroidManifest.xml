@@ -33,7 +33,12 @@
             android:name="org.caiqizhao.activity.Main"
             android:launchMode="singleTask" />
         <activity android:name="org.caiqizhao.activity.CLChatVersionActivity" />
-        <activity android:name="org.caiqizhao.activity.UpdateUserDataActivity"></activity>
+        <activity android:name="org.caiqizhao.activity.UpdateUserDataActivity" />
+
+        <service
+            android:name="org.caiqizhao.service.UpdateUserDataService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
