@@ -196,14 +196,15 @@ public class MainActivity extends AppCompatActivity {
                 JsonElement user = jsonObject.get("user");
                 User.user = gson.fromJson(user,User.class);
 
-
                 //得到好友信息
                 JsonArray user_friend = jsonObject.getAsJsonArray("friend_name");
                 if(user_friend!=null){
                     UserFriend.userFriendList = gson.fromJson(user_friend,new TypeToken<List<UserFriend>>(){}.getType());
                 }
-
-
+                UserFriend add_friend = new UserFriend();
+                add_friend.setFriend_name("New friend");
+                add_friend.setFriend_photo_src(R.drawable.new_friend);
+                UserFriend.userFriendList.add(0, add_friend);
 
                 //得道聊天记录
                 jsonObject = jsonObject.getAsJsonObject("friend_message");

@@ -15,12 +15,16 @@ import android.widget.Toast;
 
 import com.example.bolo.chat.R;
 
+import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.fragment.Me;
 
+import java.util.List;
+
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
+    private List<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,12 @@ public class Main extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //测试段代码
+        UserFriend add_friend = new UserFriend();
+        add_friend.setFriend_name("New friend");
+        add_friend.setFriend_photo_src(R.drawable.new_friend);
+        UserFriend.userFriendList.add(0, add_friend);
 
         Intent intent = getIntent();
         int code = intent.getIntExtra("code",1);
@@ -47,7 +57,6 @@ public class Main extends AppCompatActivity {
                 default:
                     replaceFragment(new Chats());
         }
-
     }
 
 
@@ -109,7 +118,8 @@ public class Main extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.add_contacks:
-                Toast.makeText(this,"contacks",Toast.LENGTH_SHORT).show();
+                Intent add_contacks = new Intent(this, AddContacks.class);
+                startActivity(add_contacks);
                 break;
             default:
         }

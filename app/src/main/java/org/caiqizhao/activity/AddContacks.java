@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.bolo.chat.R;
 
-public class SearchActivity extends AppCompatActivity {
+public class AddContacks extends AppCompatActivity {
 
     private SearchView searchView;
     private Toolbar toolbar;
@@ -19,8 +19,8 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_search_view);
-        toolbar = findViewById(R.id.toolbar_searchview);
+        setContentView(R.layout.activity_add_contacks);
+        toolbar = findViewById(R.id.toolbar_addcontacks);
         setSupportActionBar(toolbar);
     }
 
@@ -30,7 +30,7 @@ public class SearchActivity extends AppCompatActivity {
         searchView = (SearchView) searchItem.getActionView();
         searchView.setIconified(false);
         searchView.setIconifiedByDefault(true);
-        searchView.setQueryHint("Search");
+        searchView.setQueryHint("Username");
         SearchView.SearchAutoComplete mSearchAutoComplete = (SearchView.SearchAutoComplete)
                 searchView.findViewById(R.id.search_src_text);
 
@@ -41,7 +41,7 @@ public class SearchActivity extends AppCompatActivity {
         //设置最右侧的提交按钮
         searchView.setSubmitButtonEnabled(true);
         searchView.setInputType(1);// .setImeOptions(SearchView.);
-         //展开SearchView
+        //展开SearchView
         searchItem.expandActionView();
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
@@ -56,11 +56,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        //搜索响应
+        //添加好友响应
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(SearchActivity.this, query, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddContacks.this, query, Toast.LENGTH_SHORT).show();
                 return false;
             }
 

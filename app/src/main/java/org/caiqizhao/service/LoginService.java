@@ -21,7 +21,6 @@ import okhttp3.Response;
 public class LoginService extends Service {
     Thread login;
 
-
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.

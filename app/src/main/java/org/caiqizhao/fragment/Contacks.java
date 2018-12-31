@@ -32,6 +32,7 @@ public class Contacks extends Fragment {
         RecyclerView friendlist = view.findViewById(R.id.friend_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         friendlist.setLayoutManager(linearLayoutManager);
+        friendlist.findViewById(R.id.friendlist_photo);
         FriendListAdapter friendListAdapter = new FriendListAdapter();
         friendlist.setAdapter(friendListAdapter);
     }
