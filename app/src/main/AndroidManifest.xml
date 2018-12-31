@@ -24,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="org.caiqizhao.activity.ChatView" />
         <activity android:name="org.caiqizhao.activity.Register" />
 
         <service android:name="org.caiqizhao.service.LoginService" />
@@ -37,6 +38,10 @@
 
         <service
             android:name="org.caiqizhao.service.UpdateUserDataService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="org.caiqizhao.service.getFriendIPService"
             android:enabled="true"
             android:exported="true"></service>
     </application>

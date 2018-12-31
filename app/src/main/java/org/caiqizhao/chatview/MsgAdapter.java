@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import com.example.bolo.chat.R;
 
+import org.caiqizhao.entity.Message;
+
 import java.util.List;
 
 public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
-    private List<Msg> mMsgList;
+    private List<Message> MsgList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         LinearLayout leftLayout;
@@ -30,8 +32,8 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
         }
     }
 
-    public MsgAdapter(List<Msg> msgList){
-        mMsgList = msgList;
+    public MsgAdapter(List<Message> msgList){
+        this.MsgList = msgList;
     }
 
     @NonNull
@@ -43,20 +45,20 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Msg msg = mMsgList.get(i);
-        if (msg.getType() == Msg.TYPE_RECEIVED){
+        Message msg = MsgList.get(i);
+        if (msg.getPut_id() == 0){
             viewHolder.leftLayout.setVisibility(View.VISIBLE);
             viewHolder.rightLayout.setVisibility(View.GONE);   //隐藏
-            viewHolder.leftMsg.setText(msg.getContent());
-        }else if (msg.getType() == Msg.TYPE_SENT){
+            viewHolder.leftMsg.setText(msg.getMessage());
+        }else if (msg.getPut_id() == 1){
             viewHolder.rightLayout.setVisibility(View.VISIBLE);
             viewHolder.leftLayout.setVisibility(View.GONE);   //隐藏
-            viewHolder.rightMsg.setText(msg.getContent());
+            viewHolder.rightMsg.setText(msg.getMessage());
         }
     }
 
     @Override
     public int getItemCount() {
-        return mMsgList.size();
+        return MsgList.size();
     }
 }

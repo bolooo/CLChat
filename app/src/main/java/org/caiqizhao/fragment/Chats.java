@@ -39,6 +39,11 @@ public class Chats extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initAdepter();
+    }
+
+    private void initAdepter() {
+
         Set<String> strings = Message.messageHasMap.keySet();
 
         System.out.println(strings);

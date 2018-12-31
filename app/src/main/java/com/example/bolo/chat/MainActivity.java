@@ -200,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-
                 //得道聊天记录
                 jsonObject = jsonObject.getAsJsonObject("friend_message");
                 if(jsonObject!=null){
