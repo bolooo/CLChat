@@ -3,6 +3,7 @@ package org.caiqizhao.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -122,6 +123,10 @@ public class ChatView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 friend = null;
+                LocalBroadcastManager localBroadcastManager =
+                        LocalBroadcastManager.getInstance(ChatView.this);
+                Intent intent = new Intent("com.example.mycloud.UPDATA_MESSAGE");
+                localBroadcastManager.sendBroadcast(intent);
                 Intent main = new Intent(ChatView.this, Main.class);
                 startActivity(main);
             }
