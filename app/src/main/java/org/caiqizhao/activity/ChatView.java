@@ -77,7 +77,6 @@ public class ChatView extends AppCompatActivity {
         }
         Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
         startService(updateMessageState);
-        System.out.println(Message.messageHasMap.get(friend.getFriend_id()));
     }
 
     private void getFriendIP() {
@@ -237,6 +236,8 @@ public class ChatView extends AppCompatActivity {
             adapter.notifyItemInserted(msgList.size() - 1);
             msgRecyclerView.scrollToPosition(msgList.size() - 1);
             inputText.setText("");
+            Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
+            startService(updateMessageState);
         }
     }
 }
