@@ -27,6 +27,8 @@ import org.caiqizhao.service.getFriendMessageService;
 
 import java.util.List;
 
+import okhttp3.internal.Internal;
+
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
     private List<Fragment> fragmentList;
@@ -47,12 +49,11 @@ public class Main extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Intent intent = getIntent();
-        String code = intent.getStringExtra("code");
-        switch (Integer.parseInt(code)) {
+        int code = intent.getIntExtra("code", 1);
+        switch (code) {
             case 1:
                 replaceFragment(new Chats());
                 break;
-
             case 2:
                 replaceFragment(new Contacks());
                 break;
