@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.bolo.chat.R;
@@ -34,12 +35,6 @@ public class Main extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //测试段代码
-        UserFriend add_friend = new UserFriend();
-        add_friend.setFriend_name("New friend");
-        add_friend.setFriend_photo_src(R.drawable.new_friend);
-        UserFriend.userFriendList.add(0, add_friend);
 
         Intent intent = getIntent();
         int code = intent.getIntExtra("code",1);
@@ -124,5 +119,13 @@ public class Main extends AppCompatActivity {
             default:
         }
         return true;
+    }
+
+    public void newfriendlayoutclick(View view){
+        switch (view.getId()){
+            case R.id.new_friend_layout:
+                Intent newfriend = new Intent(Main.this, AddContacks.class);
+                startActivity(newfriend);
+        }
     }
 }
