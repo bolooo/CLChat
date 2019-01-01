@@ -27,11 +27,14 @@ import org.caiqizhao.service.getFriendMessageService;
 
 import java.util.List;
 
+import okhttp3.internal.Internal;
+
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
     private List<Fragment> fragmentList;
     private ServiceConnection conn = new MyService();
     private getFriendMessageService service;
+    private int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,27 @@ public class Main extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        code = intent.getIntExtra("code", 1);
+        switch (code) {
+            case 1:
+                replaceFragment(new Chats());
+                break;
+            case 2:
+                replaceFragment(new Contacks());
+                break;
+            case 3:
+                replaceFragment(new Me());
+                break;
+            default:
+                replaceFragment(new Chats());
+        }
+    }
 
     /**
      * 注册底部控件响应事件
@@ -145,5 +166,22 @@ public class Main extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 1:
+                if (resultCode == RESULT_OK){
+                    int code = data.getIntExtra("code",3);
+                }
+                break;
+            case 2:
+                if (resultCode == RESULT_OK){
+                    int code = data.getIntExtra("code",3);
+                }
+                break;
+        }
     }
 }

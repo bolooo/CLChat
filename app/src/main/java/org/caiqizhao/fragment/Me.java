@@ -27,6 +27,8 @@ import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.service.LogoutService;
 
+import static android.app.Activity.RESULT_OK;
+
 public class Me extends Fragment {
 
     private TextView user_name; //用户名称
@@ -71,7 +73,7 @@ public class Me extends Fragment {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getActivity(),UpdateUserDataActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -106,7 +108,7 @@ public class Me extends Fragment {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getActivity(),CLChatVersionActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
 
@@ -138,4 +140,5 @@ public class Me extends Fragment {
             user_name.setText(intent.getStringExtra("user_name"));
         }
     }
+
 }

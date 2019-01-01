@@ -1,6 +1,5 @@
 package org.caiqizhao.activity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
@@ -54,7 +53,7 @@ public class UpdateUserDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(UpdateUserDataActivity.this,Main.class);
                 intent.putExtra("code",3);
-                startActivity(intent);
+                setResult(RESULT_OK,intent);
                 UpdateUserDataActivity.this.finish();
             }
         });
