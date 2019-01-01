@@ -8,6 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class UpdateUserDataActivity extends AppCompatActivity {
     private LinearLayout update_user_password;
     private LinearLayout update_user_sex;
     private LinearLayout update_user_introduce;
-    private ImageButton update_return_main_activity;
+    private Toolbar toolbar;
     private TextView user_name, user_sex,user_introduce;
 
     public static Handler handler; //消息接收
@@ -47,10 +48,10 @@ public class UpdateUserDataActivity extends AppCompatActivity {
         handler = new MessageHanlerUtil();
 
         //返回图标响应事件
-        update_return_main_activity = findViewById(R.id.update_return_main_activity);
-        update_return_main_activity.setOnClickListener(new View.OnClickListener() {
+        toolbar = findViewById(R.id.toolbar_update_user);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(UpdateUserDataActivity.this,Main.class);
                 intent.putExtra("code",3);
                 startActivity(intent);

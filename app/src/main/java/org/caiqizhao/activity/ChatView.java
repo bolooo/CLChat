@@ -22,6 +22,7 @@ import org.caiqizhao.entity.Message;
 import org.caiqizhao.entity.MessageListEntity;
 import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
+import org.caiqizhao.service.UpdateMessageState;
 import org.caiqizhao.service.addMessageService;
 import org.caiqizhao.util.VariableUtil;
 
@@ -73,6 +74,8 @@ public class ChatView extends AppCompatActivity {
         for(Message message:messageList){
             message.setMessage_state(1);
         }
+        Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
+        startService(updateMessageState);
         System.out.println(Message.messageHasMap.get(friend.getFriend_id()));
     }
 
