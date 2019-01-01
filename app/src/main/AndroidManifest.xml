@@ -43,6 +43,10 @@
         <service
             android:name="org.caiqizhao.service.getFriendIPService"
             android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="org.caiqizhao.service.addMessageService"
+            android:enabled="true"
             android:exported="true"></service>
     </application>
 

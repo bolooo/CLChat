@@ -40,7 +40,8 @@ public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.
             public void onClick(View v) {
                 MessageListEntity messageListEntity = messageListEntityList.get(holder.getAdapterPosition());
                 Intent intent = new Intent(parent.getContext(),ChatView.class);
-                intent.putExtra("chat",new Gson().toJson(messageListEntity));
+//                intent.putExtra("chat",new Gson().toJson(messageListEntity));
+                ChatView.friend = messageListEntity.getFriend();
                 parent.getContext().startActivity(intent);
             }
         });
