@@ -74,6 +74,12 @@ public class ChatView extends AppCompatActivity {
                     String str = response.body().string();
 
                     if (!str.equals("0")){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        });
                         friend_ip = str;
                     }else {
                         runOnUiThread(new Runnable() {
