@@ -43,8 +43,8 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        int code = intent.getIntExtra("code", 1);
-        switch (code) {
+        String code = intent.getStringExtra("code");
+        switch (Integer.parseInt(code)) {
             case 1:
                 replaceFragment(new Chats());
                 break;
