@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:title="CLChat"
+        app:titleTextColor="@color/lfile_white"
+        app:popupTheme="@style/OverflowMenuStyle">
+
+    </android.support.v7.widget.Toolbar>
+
 
     <FrameLayout
         android:id="@+id/main_frame"
@@ -20,7 +31,7 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="8"
+        android:layout_weight="5"
         app:menu="@menu/navigation" />
 
 

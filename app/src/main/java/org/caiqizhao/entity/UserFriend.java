@@ -7,8 +7,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserFriend implements Comparable<String>{
-    private String friend_id;     //好友账户
+    private String friend_id = "0";     //好友账户
     private String friend_name;   //好友昵称
+    private int friend_photo_src;
 
     public static List<UserFriend> userFriendList = new ArrayList<UserFriend>();
 
@@ -41,6 +42,13 @@ public class UserFriend implements Comparable<String>{
         this.friend_name = friend_name;
     }
 
+    public int getFriend_photo_src() {
+        return friend_photo_src;
+    }
+
+    public void setFriend_photo_src(int friend_photo_src) {
+        this.friend_photo_src = friend_photo_src;
+    }
 
     @Override
     public int compareTo(@NonNull String o) {
