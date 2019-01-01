@@ -42,22 +42,6 @@ public class Main extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        String code = intent.getStringExtra("code");
-        switch (Integer.parseInt(code)) {
-            case 1:
-                replaceFragment(new Chats());
-                break;
-
-            case 2:
-                replaceFragment(new Contacks());
-                break;
-            case 3:
-                replaceFragment(new Me());
-                break;
-            default:
-                replaceFragment(new Chats());
-        }
     }
 
 
