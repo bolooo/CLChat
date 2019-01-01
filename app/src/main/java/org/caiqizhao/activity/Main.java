@@ -35,7 +35,11 @@ public class Main extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         Intent intent = getIntent();
         int code = intent.getIntExtra("code",1);
         switch (code){
@@ -49,11 +53,10 @@ public class Main extends AppCompatActivity {
             case  3:
                 replaceFragment(new Me());
                 break;
-                default:
-                    replaceFragment(new Chats());
+            default:
+                replaceFragment(new Chats());
         }
     }
-
 
     /**
      * 注册底部控件响应事件
