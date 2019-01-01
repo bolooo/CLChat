@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_search"
+        android:icon="@drawable/search"
+        android:orderInCategory="0"
+        android:inputType="textCapWords"
+        android:imeOptions="actionSearch"
+        android:title="search"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+    <item
+        android:id="@+id/main_add"
+        android:icon="@drawable/add"
+        android:orderInCategory="1"
+        android:title="menu"
+        app:showAsAction="ifRoom|collapseActionView">
+        <menu>
+            <item
+                android:id="@+id/add_contacks"
+                android:icon="@drawable/add_contacks"
+                android:orderInCategory="2"
+                android:title="add_contacks"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
+</menu>

@@ -22,6 +22,7 @@ import org.caiqizhao.entity.UserFriend;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Chats extends Fragment {
@@ -39,6 +40,7 @@ public class Chats extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Set<String> strings = Message.messageHasMap.keySet();  //获取消息列表所有的key 即用户朋友的id
         initAdepter();
     }
 
@@ -46,14 +48,13 @@ public class Chats extends Fragment {
 
         Set<String> strings = Message.messageHasMap.keySet();
 
-        System.out.println(strings);
+
         for(String friend_id:strings) {
-            int i = Collections.binarySearch(UserFriend.userFriendList,friend_id);
+            int i = Collections.binarySearch(UserFriend.userFriendList,friend_id); //查询朋友id在用户通讯录中的索引号
             if (i >= 0) {
                 MessageListEntity messageListEntity = new MessageListEntity(UserFriend.userFriendList.get(i),
                         Message.messageHasMap.get(friend_id));
                 messageListEntities.add(messageListEntity);
-
             }
         }
         Collections.sort(messageListEntities);
@@ -68,7 +69,7 @@ public class Chats extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.chats, container, false);
-        Log.v("fragment", "chatview");
+        Log.v("fragment", "chats");
         return view;
     }
 }

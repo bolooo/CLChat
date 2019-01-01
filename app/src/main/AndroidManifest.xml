@@ -33,6 +33,7 @@
         <activity
             android:name="org.caiqizhao.activity.Main"
             android:launchMode="singleTask" />
+
         <activity android:name="org.caiqizhao.activity.CLChatVersionActivity" />
         <activity android:name="org.caiqizhao.activity.UpdateUserDataActivity" />
 
@@ -48,6 +49,20 @@
             android:name="org.caiqizhao.service.addMessageService"
             android:enabled="true"
             android:exported="true"></service>
+            android:exported="true" />
+
+        <activity
+            android:name="org.caiqizhao.activity.SearchActivity"
+            android:theme="@style/SeachViewActivityTheme" />
+
+        <service
+            android:name="org.caiqizhao.service.LogoutService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name="org.caiqizhao.activity.AddContacks"
+            android:theme="@style/SeachViewActivityTheme"></activity>
     </application>
 
 </manifest>

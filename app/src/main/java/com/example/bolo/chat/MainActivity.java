@@ -71,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
         handler = new MessageUtil();
 
+        login_to_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, Main.class));
+            }
+        });
+
     }
 
 
@@ -191,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
                 //得到用户信息
                 JsonElement user = jsonObject.get("user");
                 User.user = gson.fromJson(user,User.class);
-
 
                 //得到好友信息
                 JsonArray user_friend = jsonObject.getAsJsonArray("friend_name");
