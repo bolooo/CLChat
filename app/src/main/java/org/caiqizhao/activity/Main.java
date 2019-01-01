@@ -1,6 +1,7 @@
 package org.caiqizhao.activity;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -19,10 +20,13 @@ import android.widget.Toast;
 
 import com.example.bolo.chat.R;
 
+import org.caiqizhao.entity.Message;
+import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.fragment.Me;
+import org.caiqizhao.service.LogoutService;
 import org.caiqizhao.service.getFriendMessageService;
 
 import java.util.List;
@@ -32,39 +36,23 @@ import okhttp3.internal.Internal;
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
     private List<Fragment> fragmentList;
-    private ServiceConnection conn = new MyService();
-    private getFriendMessageService service;
+    private ServiceConnection conn = new MyGetFriendMessageService();
+    private getFriendMessageService friendMessageService;
     private int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        replaceFragment(new Chats());
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = new Intent(Main.this,getFriendMessageService.class);
+        bindService(intent,conn,Context.BIND_AUTO_CREATE);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent = getIntent();
-        code = intent.getIntExtra("code", 1);
-        switch (code) {
-            case 1:
-                replaceFragment(new Chats());
-                break;
-            case 2:
-                replaceFragment(new Contacks());
-                break;
-            case 3:
-                replaceFragment(new Me());
-                break;
-            default:
-                replaceFragment(new Chats());
-        }
-    }
 
     /**
      * 注册底部控件响应事件
@@ -101,6 +89,7 @@ public class Main extends AppCompatActivity {
         ftr.replace(R.id.main_frame, fragment);
         ftr.commit();
     }
+
 
     /**
      * toolbar创建
@@ -141,14 +130,14 @@ public class Main extends AppCompatActivity {
         }
     }
 
-    class MyService implements ServiceConnection {
+    class MyGetFriendMessageService implements ServiceConnection {
         /***
          * 被绑定时，该方法将被调用
          * 本例通过Binder对象获得Service对象本身
          */
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            service = (IBinder) ((getFriendMessageService.LocalBinder) service).getService();
+            friendMessageService =  ((getFriendMessageService.LocalBinder)service).getService();
         }
 
         /***
@@ -157,31 +146,24 @@ public class Main extends AppCompatActivity {
          */
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            service = null;
+            friendMessageService = null;
         }
 
     }
 
+
+
+    //销毁活动时传递退出消息给服务器
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        System.out.println("退出了");
+        unbindService(conn);
 
+        //通知服务器退出账户
+        Intent intent = new Intent(this,LogoutService.class);
+        startService(intent);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case 1:
-                if (resultCode == RESULT_OK){
-                    int code = data.getIntExtra("code",3);
-                }
-                break;
-            case 2:
-                if (resultCode == RESULT_OK){
-                    int code = data.getIntExtra("code",3);
-                }
-                break;
-        }
-    }
+
 }
