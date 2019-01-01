@@ -3,6 +3,7 @@ package org.caiqizhao.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
 
 import com.google.gson.Gson;
@@ -37,12 +38,12 @@ public class getFriendMessageService extends Service {
         return mBinder;
     }
 
-    private void PortListener(){
+    public void PortListener(){
         try {
             ServerSocket serverSocket = new ServerSocket(9999);
             while (true){
-                serverSocket.accept();
-
+                Socket socket = serverSocket.accept();
+                new Thread(new getFriendMessageRun(socket)).start();
             }
         }catch (Exception e){
         }
@@ -67,10 +68,14 @@ public class getFriendMessageService extends Service {
                 }
                 socket.close();
                 String str = baos.toByteArray().toString();
-                if(ChatView.friend == null){
+                Message mag = new Gson().fromJson(str,Message.class);
+                if(ChatView.friend.getFriend_id() == mag.getFriend_id()){
 
                 }else {
                     android.os.Message message = new android.os.Message();
+                    Bundle data = new Bundle();
+                    data.putString("message", str);
+                    message.setData(data);
                     ChatView.handler.sendMessage(message);
                 }
             } catch (IOException e) {

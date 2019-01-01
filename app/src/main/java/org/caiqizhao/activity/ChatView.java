@@ -61,6 +61,7 @@ public class ChatView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatview);
         initToolbar();
+        handler = new MessageUtil();
         msgList = Message.messageHasMap.get(friend.getFriend_id());
         getFriendIP();
         setChatView();
@@ -233,9 +234,6 @@ public class ChatView extends AppCompatActivity {
             adapter.notifyItemInserted(msgList.size() - 1);
             msgRecyclerView.scrollToPosition(msgList.size() - 1);
             inputText.setText("");
-            Intent intent = new Intent(ChatView.this,addMessageService.class);
-            intent.putExtra("json",new Gson().toJson(msg));
-            startService(intent);
         }
     }
 }

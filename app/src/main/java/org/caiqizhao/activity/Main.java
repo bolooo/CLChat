@@ -38,7 +38,6 @@ public class Main extends AppCompatActivity {
     private List<Fragment> fragmentList;
     private ServiceConnection conn = new MyGetFriendMessageService();
     private getFriendMessageService friendMessageService;
-    private int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +50,7 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = new Intent(Main.this,getFriendMessageService.class);
         bindService(intent,conn,Context.BIND_AUTO_CREATE);
+        friendMessageService.PortListener();
     }
 
 
