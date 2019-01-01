@@ -25,6 +25,7 @@ import org.caiqizhao.activity.UpdateUserDataActivity;
 import org.caiqizhao.entity.Message;
 import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
+import org.caiqizhao.service.LogoutService;
 
 public class Me extends Fragment {
 
@@ -87,6 +88,10 @@ public class Me extends Fragment {
                 UserFriend.userFriendList.clear();
                 UserFriend.friend_add_user.clear();
                 UserFriend.uer_add_friend.clear();
+
+                //通知服务器退出账户
+                intent = new Intent(getActivity(),LogoutService.class);
+                getActivity().startService(intent);
 
                 //返回登陆界面
                 intent = new Intent(getActivity(),MainActivity.class);

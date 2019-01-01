@@ -1,6 +1,9 @@
 package org.caiqizhao.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -20,12 +23,15 @@ import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.fragment.Me;
+import org.caiqizhao.service.getFriendMessageService;
 
 import java.util.List;
 
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
     private List<Fragment> fragmentList;
+    private ServiceConnection conn = new MyService();
+    private getFriendMessageService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +43,8 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        int code = intent.getIntExtra("code",1);
-        switch (code){
+        int code = intent.getIntExtra("code", 1);
+        switch (code) {
             case 1:
                 replaceFragment(new Chats());
                 break;
@@ -46,11 +52,11 @@ public class Main extends AppCompatActivity {
             case 2:
                 replaceFragment(new Contacks());
                 break;
-            case  3:
+            case 3:
                 replaceFragment(new Me());
                 break;
-                default:
-                    replaceFragment(new Chats());
+            default:
+                replaceFragment(new Chats());
         }
     }
 
@@ -79,20 +85,21 @@ public class Main extends AppCompatActivity {
     };
 
 
-
     /**
      * fragment替换事件
+     *
      * @param fragment
      */
-    public void replaceFragment(Fragment fragment){
+    public void replaceFragment(Fragment fragment) {
         FragmentManager ft = getSupportFragmentManager();
-        FragmentTransaction ftr= ft.beginTransaction();
+        FragmentTransaction ftr = ft.beginTransaction();
         ftr.replace(R.id.main_frame, fragment);
         ftr.commit();
     }
 
     /**
      * toolbar创建
+     *
      * @param menu
      * @return
      */
@@ -111,7 +118,7 @@ public class Main extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.add_contacks:
                 Intent add_contacks = new Intent(this, AddContacks.class);
                 startActivity(add_contacks);
@@ -121,11 +128,38 @@ public class Main extends AppCompatActivity {
         return true;
     }
 
-    public void newfriendlayoutclick(View view){
-        switch (view.getId()){
+    public void newfriendlayoutclick(View view) {
+        switch (view.getId()) {
             case R.id.new_friend_layout:
                 Intent newfriend = new Intent(Main.this, AddContacks.class);
                 startActivity(newfriend);
         }
+    }
+
+    class MyService implements ServiceConnection {
+        /***
+         * 被绑定时，该方法将被调用
+         * 本例通过Binder对象获得Service对象本身
+         */
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            service = (IBinder) ((getFriendMessageService.LocalBinder) service).getService();
+        }
+
+        /***
+         * 绑定非正常解除时，如Service服务被异外销毁时，该方法将被调用
+         * 将Service对象置为空
+         */
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            service = null;
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
