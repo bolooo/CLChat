@@ -53,7 +53,7 @@ public class UpdateUserDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(UpdateUserDataActivity.this,Main.class);
                 intent.putExtra("code",3);
-                setResult(RESULT_OK,intent);
+                startActivity(intent);
                 UpdateUserDataActivity.this.finish();
             }
         });

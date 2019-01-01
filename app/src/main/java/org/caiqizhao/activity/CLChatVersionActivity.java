@@ -26,4 +26,5 @@ public class CLChatVersionActivity extends AppCompatActivity {
             }
         });
     }
+
 }

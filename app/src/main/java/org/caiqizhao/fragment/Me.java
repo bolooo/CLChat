@@ -73,7 +73,7 @@ public class Me extends Fragment {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getActivity(),UpdateUserDataActivity.class);
-                startActivityForResult(intent,1);
+                startActivity(intent);
             }
         });
 
@@ -82,18 +82,6 @@ public class Me extends Fragment {
         user_return_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //删除现存的用户信息
-                User.user = null;              //用户个人资料设置为空
-                Message.messageHasMap.clear();  //清楚存储的用户消息
-
-                //清空所有好友列表以及好友请求
-                UserFriend.userFriendList.clear();
-                UserFriend.friend_add_user.clear();
-                UserFriend.uer_add_friend.clear();
-
-                //通知服务器退出账户
-                intent = new Intent(getActivity(),LogoutService.class);
-                getActivity().startService(intent);
 
                 //返回登陆界面
                 intent = new Intent(getActivity(),MainActivity.class);
@@ -108,7 +96,7 @@ public class Me extends Fragment {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getActivity(),CLChatVersionActivity.class);
-                startActivityForResult(intent,2);
+                startActivity(intent);
             }
         });
 

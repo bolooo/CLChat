@@ -6,7 +6,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 public class getFriendMessageService extends Service {
-    private final IBinder mBinder = new LocalBinder();
+    private  LocalBinder mBinder;
 
     public class LocalBinder extends Binder {
         public getFriendMessageService getService() {
@@ -16,6 +16,7 @@ public class getFriendMessageService extends Service {
 
 
     public getFriendMessageService() {
+        mBinder = new LocalBinder();
     }
 
     @Override
