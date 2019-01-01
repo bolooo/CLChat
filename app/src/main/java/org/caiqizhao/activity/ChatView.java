@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,24 +45,13 @@ public class ChatView extends AppCompatActivity {
     public static UserFriend friend = null;
     private String friend_ip;
     public static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-    /**
-     * 初始化消息数据
-     */
-//    public void initMsgs(){
-//        Msg msg1 = new Msg("hello guy.", Msg.TYPE_RECEIVED);
-//        msgList.add(msg1);
-//        Msg msg2 = new Msg("hello guy.", Msg.TYPE_SENT);
-//        msgList.add(msg2);
-//        Msg msg3 = new Msg("yo.", Msg.TYPE_RECEIVED);
-//        msgList.add(msg3);
-//    }
-
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatview);
+        initToolbar();
         msgList = Message.messageHasMap.get(friend.getFriend_id());
         getFriendIP();
         setChatView();
@@ -113,6 +103,25 @@ public class ChatView extends AppCompatActivity {
         adapter = new MsgAdapter(msgList);
         msgRecyclerView.setAdapter(adapter);
 
+    }
+
+    /**
+     * 初始化toolbar
+     */
+    public void initToolbar(){
+        toolbar = findViewById(R.id.toolbar_chatview);
+
+        /*返回事件*/
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                friend = null;
+                Intent main = new Intent(ChatView.this, Main.class);
+                startActivity(main);
+            }
+        });
+
+        toolbar.setTitle(friend.getFriend_name());
     }
 
     private class sendNotIPOnClick implements View.OnClickListener{
