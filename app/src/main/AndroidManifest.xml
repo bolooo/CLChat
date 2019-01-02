@@ -3,9 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.bolo.chat">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许应用程序改变网络状态-->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <!--允许应用程序改变WIFI连接状态-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+    <!--允许应用程序访问有关的网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!--允许应用程序访问WIFI网卡的网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!--允许应用程序完全使用网络-->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -14,7 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="ExtraText,GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
@@ -48,7 +59,6 @@
             android:name="org.caiqizhao.service.addMessageService"
             android:enabled="true"
             android:exported="true" />
-        android:exported="true" />
         <activity
             android:name="org.caiqizhao.activity.SearchActivity"
             android:theme="@style/SeachViewActivityTheme" />
@@ -69,7 +79,7 @@
         <service
             android:name="org.caiqizhao.service.UpdateMessageState"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
 
 </manifest>

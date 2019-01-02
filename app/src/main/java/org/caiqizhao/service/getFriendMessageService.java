@@ -19,7 +19,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class getFriendMessageService extends Service {
-    private  LocalBinder mBinder;
+    private final LocalBinder mBinder = new LocalBinder();
+    private static ServerSocket serverSocket = null;
 
     public class LocalBinder extends Binder {
         public getFriendMessageService getService() {
@@ -29,7 +30,7 @@ public class getFriendMessageService extends Service {
 
 
     public getFriendMessageService() {
-        mBinder = new LocalBinder();
+
     }
 
     @Override
@@ -38,15 +39,35 @@ public class getFriendMessageService extends Service {
         return mBinder;
     }
 
-    public void PortListener(){
-        try {
-            ServerSocket serverSocket = new ServerSocket(9999);
-            while (true){
-                Socket socket = serverSocket.accept();
-                new Thread(new getFriendMessageRun(socket)).start();
+    public void close(){
+        if(serverSocket != null){
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }catch (Exception e){
         }
+    }
+
+    public void PortListener(){
+        if(serverSocket == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        System.out.println("进来了");
+                        serverSocket = new ServerSocket(9000);
+                        while (true) {
+                            Socket socket = serverSocket.accept();
+                            System.out.println("来请求了");
+                            new Thread(new getFriendMessageRun(socket)).start();
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+            }).start();
+        }
+
     }
 
     private class getFriendMessageRun implements Runnable{
@@ -66,10 +87,12 @@ public class getFriendMessageService extends Service {
                 while ((size = inputStream.read(bytes)) != -1) {
                     baos.write(bytes, 0, size);
                 }
+                inputStream.close();
                 socket.close();
                 String str = baos.toByteArray().toString();
+                System.out.println(str);
                 Message mag = new Gson().fromJson(str,Message.class);
-                if(ChatView.friend.getFriend_id() == mag.getFriend_id()){
+                if(ChatView.friend.getFriend_id() == mag.getUser_id()){
 
                 }else {
                     android.os.Message message = new android.os.Message();

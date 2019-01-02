@@ -35,7 +35,6 @@ import okhttp3.internal.Internal;
 
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
-    private List<Fragment> fragmentList;
     private ServiceConnection conn = new MyGetFriendMessageService();
     private getFriendMessageService friendMessageService;
 
@@ -50,7 +49,7 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = new Intent(Main.this,getFriendMessageService.class);
         bindService(intent,conn,Context.BIND_AUTO_CREATE);
-        friendMessageService.PortListener();
+
     }
 
 
@@ -138,6 +137,7 @@ public class Main extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             friendMessageService =  ((getFriendMessageService.LocalBinder)service).getService();
+            friendMessageService.PortListener();
         }
 
         /***
@@ -157,7 +157,6 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("退出了");
         unbindService(conn);
 
         //通知服务器退出账户
