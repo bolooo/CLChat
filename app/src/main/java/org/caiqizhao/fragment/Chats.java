@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,7 +34,8 @@ public class Chats extends Fragment {
     public List<MessageListEntity> messageListEntities = new ArrayList<MessageListEntity>(); //聊天列表（适配器实体类）
     private View view;    //布局
     public  Context context;    //活动上下文
-    private UpdataUserMessageFilter updataUserMessageFilter; //广播
+    MessageListAdepter messageListAdepter;
+    public static Handler handler;  //刷新消息
 
     @Override
     public void onAttach(Context context) {
@@ -45,14 +47,18 @@ public class Chats extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //注册消息刷新广播
-        //注册广播接收
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.example.mycloud.UPDATA_MESSAGE");
-        updataUserMessageFilter = new UpdataUserMessageFilter();
-        localBroadcastManager.registerReceiver(updataUserMessageFilter,intentFilter);
+        //消息接收
+        handler = new Handler(){
+            @Override
+            public void handleMessage(android.os.Message msg) {
+                super.handleMessage(msg);
+                initAdepter();
+            }
+        };
+
+
         initAdepter();
+
     }
 
     /**
@@ -73,7 +79,7 @@ public class Chats extends Fragment {
         RecyclerView message_list = view.findViewById(R.id.message_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         message_list.setLayoutManager(linearLayoutManager);
-        MessageListAdepter messageListAdepter = new MessageListAdepter(messageListEntities);
+        messageListAdepter = new MessageListAdepter(messageListEntities);
         message_list.setAdapter(messageListAdepter);
     }
 
@@ -81,22 +87,8 @@ public class Chats extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.chats, container, false);
-        Log.v("fragment", "chats");
         return view;
     }
-
-
-    /**
-     * 监听广播用户名称的变化，并将其显示在相应的TextView中
-     */
-    public class UpdataUserMessageFilter extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            initAdepter();
-        }
-    }
-
 
 
 }

@@ -22,13 +22,13 @@ import org.caiqizhao.adapter.FriendListAdapter;
 
 public class Contacks extends Fragment {
     private View view;
-    public static Context context;
+    public  Context context;
     private LinearLayout newfriendlayout;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Chats.context = context;
+        this.context = context;
     }
 
     @Override
