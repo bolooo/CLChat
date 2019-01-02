@@ -41,6 +41,9 @@ public class NewFriendWaitingService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         while (true) {
+            if (User.user == null ){
+                break;
+            }
             String user_id = User.user.getUser_id();
             OkHttpClient client = new OkHttpClient();
             RequestBody requestBody = new FormBody.Builder()
@@ -72,7 +75,9 @@ public class NewFriendWaitingService extends IntentService {
                 //其他人添加用户的信息(没确认)
                 JsonArray friend_add_user = jsonObject.getAsJsonArray("friend_add_user");
                 if(friend_add_user!=null){
-                    friendList.clear();
+                    if (friendList != null) {
+                        friendList.clear();
+                    }
                     friendList = gson.fromJson(friend_add_user,new TypeToken<List<UserFriend>>(){}.getType());
                     if (friendList.size() > UserFriend.friend_add_user.size()){
                         VariableUtil.frien_add_user = friendList.size() - UserFriend.friend_add_user.size();
@@ -80,14 +85,17 @@ public class NewFriendWaitingService extends IntentService {
                         UserFriend.friend_add_user = friendList;
                         Message message = new Message();
                         message.what = 0x002;
-                        Contacks.handler.sendMessage(message);
                         Main.handler.sendMessage(message);
+                        Message message2 = new Message();
+                        Contacks.handler.sendMessage(message2);
                     }
                 }
                 //得到好友信息
                 JsonArray user_friend = jsonObject.getAsJsonArray("friend_name");
                 if(user_friend!=null){
-                    friendList.clear();
+                    if (friendList!=null) {
+                        friendList.clear();
+                    }
                     friendList = gson.fromJson(user_friend,new TypeToken<List<UserFriend>>(){}.getType());
                     if(UserFriend.userFriendList.size()!=friendList.size()){
                         UserFriend.userFriendList.clear();

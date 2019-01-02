@@ -32,7 +32,8 @@ import org.caiqizhao.adapter.NewFriendListAdapter;
          Message message = new Message();
          message.what = 0x002;
          Main.handler.sendMessage(message);
-         Contacks.handler.sendMessage(message);
+         Message message2 = new Message();
+         Contacks.handler.sendMessage(message2);
          initToolbar();
          initAdapter();
      }
