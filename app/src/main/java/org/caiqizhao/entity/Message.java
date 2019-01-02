@@ -2,10 +2,12 @@ package org.caiqizhao.entity;
 
 import android.support.annotation.NonNull;
 
+import org.caiqizhao.util.CompareTime;
+
 import java.util.HashMap;
 import java.util.List;
 
-public class Message{
+public class Message  implements Comparable<Message>{
     private int message_no;    //消息编号
     private String user_id;        //用户的id
     private String friend_id;      //好友ID
@@ -92,4 +94,8 @@ public class Message{
     }
 
 
+    @Override
+    public int compareTo(@NonNull Message o) {
+        return (-CompareTime.compare_time(this.getTime(), o.getTime()));
+    }
 }

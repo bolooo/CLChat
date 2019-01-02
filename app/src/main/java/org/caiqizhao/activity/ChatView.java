@@ -1,13 +1,8 @@
 package org.caiqizhao.activity;
 
-import android.annotation.SuppressLint;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,20 +16,16 @@ import android.widget.EditText;
 import com.example.bolo.chat.R;
 import com.google.gson.Gson;
 
-import org.caiqizhao.chatview.MsgAdapter;
+import org.caiqizhao.adapter.MsgAdapter;
 import org.caiqizhao.entity.Message;
-import org.caiqizhao.entity.MessageListEntity;
 import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
-import org.caiqizhao.service.LogoutService;
 import org.caiqizhao.service.UpdateMessageState;
 import org.caiqizhao.service.addMessageService;
-import org.caiqizhao.service.getFriendMessageService;
 import org.caiqizhao.util.VariableUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,26 +51,23 @@ public class ChatView extends AppCompatActivity {
     private   SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private Toolbar toolbar;
     public static Handler handler;
-    private ServiceConnection conn = new MyGetFriendMessageService();
-    private getFriendMessageService friendMessageService;
-
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatview);
-        initToolbar();
         handler = new MessageUtil();
         msgList = Message.messageHasMap.get(friend.getFriend_id());
         getFriendIP();
         setChatView();
         initMessageState();
-        Intent intent = new Intent(ChatView.this,getFriendMessageService.class);
-        bindService(intent,conn,Context.BIND_AUTO_CREATE);
+        initToolbar();
     }
 
-    //更新消息阅读状态
+    /**
+     * 更新消息的状态（已读或未读的状态）
+     */
     private void initMessageState() {
         List<Message> messageList = Message.messageHasMap.get(friend.getFriend_id());
         for(Message message:messageList){
@@ -90,6 +78,9 @@ public class ChatView extends AppCompatActivity {
         startService(updateMessageState);
     }
 
+    /**
+     * 获取当前好友的状态（离线或在线）
+     */
     private void getFriendIP() {
         new Thread(new Runnable() {
             @Override
@@ -131,6 +122,7 @@ public class ChatView extends AppCompatActivity {
             }
         }).start();
     }
+
 
     /**
      * 初始化聊天界面
@@ -196,6 +188,8 @@ public class ChatView extends AppCompatActivity {
     }
 
 
+
+
     //好友在线，在线消息发送
     private class sendIPOnClick implements View.OnClickListener {
 
@@ -226,9 +220,6 @@ public class ChatView extends AppCompatActivity {
                             OutputStream out = socket.getOutputStream();
                             System.out.println(json);
                             out.write(json.getBytes());
-                            if(socket.isBound()){
-                                System.out.println("成功连接");
-                            }
                             out.flush();
                             out.close();
                             socket.close();
@@ -250,44 +241,24 @@ public class ChatView extends AppCompatActivity {
             Bundle data = msg.getData();
             String str = data.getString("message");
             Message masssage = new Gson().fromJson(str,Message.class);
-            masssage.setMessage_state(1);
-            msgList.add(masssage);
-            adapter.notifyItemInserted(msgList.size() - 1);
-            msgRecyclerView.scrollToPosition(msgList.size() - 1);
-            inputText.setText("");
-            Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
-            updateMessageState.putExtra("friend_id",friend.getFriend_id());
-            startService(updateMessageState);
+            if (msg.what == 0x001) {
+                msgList.add(masssage);
+                adapter.notifyItemInserted(msgList.size() - 1);
+                msgRecyclerView.scrollToPosition(msgList.size() - 1);
+                inputText.setText("");
+                Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
+                updateMessageState.putExtra("friend_id", friend.getFriend_id());
+                startService(updateMessageState);
+            }
         }
     }
 
-    class MyGetFriendMessageService implements ServiceConnection {
-        /***
-         * 被绑定时，该方法将被调用
-         * 本例通过Binder对象获得Service对象本身
-         */
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            friendMessageService =  ((getFriendMessageService.LocalBinder)service).getService();
-            friendMessageService.PortListener();
-        }
 
-        /***
-         * 绑定非正常解除时，如Service服务被异外销毁时，该方法将被调用
-         * 将Service对象置为空
-         */
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            friendMessageService = null;
-        }
-
-    }
 
     //销毁活动解除绑定
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(conn);
 
     }
 }

@@ -2,9 +2,10 @@ package org.caiqizhao.adapter;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bolo.chat.R;
-import com.google.gson.Gson;
 
 import org.caiqizhao.activity.ChatView;
-import org.caiqizhao.chatview.Msg;
 import org.caiqizhao.entity.Message;
 import org.caiqizhao.entity.MessageListEntity;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.ViewHolder> {
     private List<MessageListEntity> messageListEntityList;
@@ -55,6 +56,18 @@ public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.
         holder.friend_name.setText(messageListEntity.getFriend().getFriend_name());
         int index = messageListEntity.getMessageList().size()-1;
         System.out.println(messageListEntity.getMessageList());
+        List<Message> messageList = messageListEntity.getMessageList();
+        int sum = 0;
+        for (Message message :messageList){
+            if(message.getMessage_state() == 0){
+                sum++;
+            }
+        }
+        if (sum!=0){
+            holder.badgeView.setBadgeNumber(sum);
+            holder.badgeView.setBadgeTextColor(Color.RED);
+            holder.badgeView.setBadgeGravity(Gravity.RIGHT|Gravity.TOP);
+        }
         holder.friend_message.setText(messageListEntity.getMessageList()
                 .get(index).getMessage());
         String time = messageListEntity.getMessageList()
@@ -69,11 +82,13 @@ public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        View chatView;
-        public ImageView friend_tupian;
-        public TextView friend_name;
-        public TextView message_time;
-        public TextView friend_message;
+        private View chatView;
+        private ImageView friend_tupian;
+        private TextView friend_name;
+        private TextView message_time;
+        private TextView friend_message;
+        private QBadgeView badgeView;
+
 
 
         public ViewHolder(View itemView) {
@@ -83,6 +98,7 @@ public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.
             message_time = itemView.findViewById(R.id.message_time);
             friend_name = itemView.findViewById(R.id.firend_name);
             friend_tupian = itemView.findViewById(R.id.friend_tupiao);
+            badgeView = new QBadgeView(friend_tupian.getContext());
 
         }
     }

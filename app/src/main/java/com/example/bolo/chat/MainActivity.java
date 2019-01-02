@@ -38,6 +38,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -218,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
                         JsonArray message = jsonObject.getAsJsonArray(s);
                         ArrayList<org.caiqizhao.entity.Message> messageList = new ArrayList<org.caiqizhao.entity.Message>();
                         messageList = gson.fromJson(message,new TypeToken<List<org.caiqizhao.entity.Message>>(){}.getType());
-                        org.caiqizhao.entity.Message.messageHasMap
-                                .put(s, messageList);
+                        Collections.sort(messageList);
+                        org.caiqizhao.entity.Message.messageHasMap.put(s, messageList);
 
                     }
                 }
