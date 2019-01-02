@@ -45,7 +45,7 @@ import okhttp3.Response;
 public class ChatView extends AppCompatActivity {
 
 
-    private List<Message> msgList = null;
+    private List<Message> msgList = new ArrayList<>();
     private EditText inputText;
     private Button send;
     private RecyclerView msgRecyclerView;
@@ -159,10 +159,11 @@ public class ChatView extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                friend = null;
+
                 if(!msgList.isEmpty()&&Message.messageHasMap.get(friend.getFriend_id())==null){
                     Message.messageHasMap.put(friend.getFriend_id(),msgList);
                 }
+                friend = null;
                 msgList = null;
                 friend_ip = "";
                 android.os.Message message = new android.os.Message();

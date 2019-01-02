@@ -138,7 +138,7 @@ public class Main extends AppCompatActivity {
     public void newfriendlayoutclick(View view) {
         switch (view.getId()) {
             case R.id.new_friend_layout:
-                Intent newfriend = new Intent(Main.this, AddContacksActivity.class);
+                Intent newfriend = new Intent(Main.this, NewFriend.class);
                 startActivity(newfriend);
         }
     }

@@ -23,6 +23,8 @@ import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.util.ToastUtil;
 
+import java.util.Collections;
+
 
 public class AddContacksActivity extends AppCompatActivity {
 
@@ -95,13 +97,17 @@ public class AddContacksActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 String friend_id = query;
-                String user_id = User.user.getUser_id();
-                String code = "3";
-                Intent AddContacksService = new Intent(AddContacksActivity.this, org.caiqizhao.service.AddContacksService.class);
-                AddContacksService.putExtra("friend_id",friend_id);
-                AddContacksService.putExtra("user_id", user_id);
-                AddContacksService.putExtra("code", code);
-                startService(AddContacksService);
+                if (Collections.binarySearch(UserFriend.userFriendList, friend_id) < 0) {
+                    String user_id = User.user.getUser_id();
+                    String code = "3";
+                    Intent AddContacksService = new Intent(AddContacksActivity.this, org.caiqizhao.service.AddContacksService.class);
+                    AddContacksService.putExtra("friend_id", friend_id);
+                    AddContacksService.putExtra("user_id", user_id);
+                    AddContacksService.putExtra("code", code);
+                    startService(AddContacksService);
+                } else{
+                    ToastUtil.showToast(AddContacksActivity.this, "已添加该好友");
+                }
                 return false;
             }
 

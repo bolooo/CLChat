@@ -37,5 +37,5 @@ dependencies {
     implementation 'q.rorbin:badgeview:1.1.2'
     implementation 'org.apache.commons:commons-lang3:3.7'
     //noinspection GradlePath
-    implementation files('/Users/caiqizhao/Downloads/commons-codec-1.1/commons-codec-1.1.jar')
+    implementation files('libs/commons-codec-1.1.jar')
 }
