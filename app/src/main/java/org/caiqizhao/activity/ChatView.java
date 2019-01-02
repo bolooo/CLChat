@@ -168,6 +168,8 @@ public class ChatView extends AppCompatActivity {
                 friend_ip = "";
                 android.os.Message message = new android.os.Message();
                 Chats.handler.sendMessage(message);
+                Intent intent = new Intent(ChatView.this,Main.class);
+                startActivity(intent);
                 ChatView.this.finish();
             }
         });
