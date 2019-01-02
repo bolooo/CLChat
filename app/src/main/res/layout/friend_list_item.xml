@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:id="@+id/friendlist_name"
         android:textStyle="bold"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:gravity="left|center"/>
 
     <View

@@ -1,43 +1,28 @@
 package org.caiqizhao.activity;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.bolo.chat.R;
 
-import org.caiqizhao.entity.Message;
-import org.caiqizhao.entity.User;
-import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.fragment.Me;
 import org.caiqizhao.service.LogoutService;
-import org.caiqizhao.service.getFriendMessageService;
-
-import java.util.List;
-
-import okhttp3.internal.Internal;
+import org.caiqizhao.service.getFriendMessgaeIntentService;
 
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
-    private List<Fragment> fragmentList;
-    private ServiceConnection conn = new MyGetFriendMessageService();
-    private getFriendMessageService friendMessageService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +33,8 @@ public class Main extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent intent = new Intent(Main.this,getFriendMessageService.class);
-        bindService(intent,conn,Context.BIND_AUTO_CREATE);
+        Intent intent = new Intent(this,getFriendMessgaeIntentService.class) ;
+        startService(intent);
 
     }
 
@@ -114,7 +99,7 @@ public class Main extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_contacks:
-                Intent add_contacks = new Intent(this, AddContacks.class);
+                Intent add_contacks = new Intent(this, AddContacksActivity.class);
                 startActivity(add_contacks);
                 break;
             default:
@@ -125,32 +110,12 @@ public class Main extends AppCompatActivity {
     public void newfriendlayoutclick(View view) {
         switch (view.getId()) {
             case R.id.new_friend_layout:
-                Intent newfriend = new Intent(Main.this, AddContacks.class);
+                Intent newfriend = new Intent(Main.this, AddContacksActivity.class);
                 startActivity(newfriend);
         }
     }
 
-    class MyGetFriendMessageService implements ServiceConnection {
-        /***
-         * 被绑定时，该方法将被调用
-         * 本例通过Binder对象获得Service对象本身
-         */
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            friendMessageService =  ((getFriendMessageService.LocalBinder)service).getService();
-            friendMessageService.PortListener();
-        }
 
-        /***
-         * 绑定非正常解除时，如Service服务被异外销毁时，该方法将被调用
-         * 将Service对象置为空
-         */
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            friendMessageService = null;
-        }
-
-    }
 
 
 
@@ -158,8 +123,8 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("退出了");
-        unbindService(conn);
+
+        System.out.println("用户销毁了");
 
         //通知服务器退出账户
         Intent intent = new Intent(this,LogoutService.class);

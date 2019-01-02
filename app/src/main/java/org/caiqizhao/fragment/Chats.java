@@ -26,26 +26,25 @@ import org.caiqizhao.entity.UserFriend;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public class Chats extends Fragment {
 
-    public List<MessageListEntity> messageListEntities = new ArrayList<MessageListEntity>();
-    private View view;
-    public static Context context;
-    private UpdataUserMessageFilter updataUserMessageFilter;
+    public List<MessageListEntity> messageListEntities = new ArrayList<MessageListEntity>(); //聊天列表（适配器实体类）
+    private View view;    //布局
+    public  Context context;    //活动上下文
+    private UpdataUserMessageFilter updataUserMessageFilter; //广播
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Chats.context = context;
+        this.context = context;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Set<String> strings = Message.messageHasMap.keySet();  //获取消息列表所有的key 即用户朋友的id
+
         //注册消息刷新广播
         //注册广播接收
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
@@ -56,6 +55,9 @@ public class Chats extends Fragment {
         initAdepter();
     }
 
+    /**
+     * 初始化适配器（加载聊天列表）
+     */
     private void initAdepter() {
         messageListEntities.clear();
         Set<String> strings = Message.messageHasMap.keySet();
@@ -94,4 +96,7 @@ public class Chats extends Fragment {
             initAdepter();
         }
     }
+
+
+
 }

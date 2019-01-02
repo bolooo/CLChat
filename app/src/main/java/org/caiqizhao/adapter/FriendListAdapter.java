@@ -36,7 +36,6 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     public void onBindViewHolder(@NonNull FriendListAdapter.ViewHolder holder, int position) {
         UserFriend friend = FriendList.get(position);
         holder.friend_name.setText(friend.getFriend_name());
-        holder.friend_photo.setImageResource(friend.getFriend_photo_src());
     }
 
     @Override

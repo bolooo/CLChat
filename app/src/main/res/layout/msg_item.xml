@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            app:bubbleColor="@android:color/holo_blue_light"
+            app:bubbleColor="@android:color/holo_blue_bright"
             app:lookAt="left"
             app:lookLength="10dp"
             app:lookPosition="20dp"

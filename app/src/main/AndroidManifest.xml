@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="ExtraText,GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
@@ -52,7 +52,7 @@
             android:name="org.caiqizhao.service.addMessageService"
             android:enabled="true"
             android:exported="true" />
-        android:exported="true" />
+
         <activity
             android:name="org.caiqizhao.activity.SearchActivity"
             android:theme="@style/SeachViewActivityTheme" />
@@ -63,19 +63,26 @@
             android:exported="true" />
 
         <activity
-            android:name="org.caiqizhao.activity.AddContacks"
+            android:name="org.caiqizhao.activity.AddContacksActivity"
             android:theme="@style/SeachViewActivityTheme" />
 
-        <service
-            android:name="org.caiqizhao.service.getFriendMessageService"
-            android:enabled="true"
-            android:exported="true" />
         <service
             android:name="org.caiqizhao.service.UpdateMessageState"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name="org.caiqizhao.service.getFriendMessgaeIntentService"
+            android:exported="false" />
 
-        <activity android:name="org.caiqizhao.activity.NewFriend"></activity>
+        <activity android:name="org.caiqizhao.activity.NewFriend" />
+
+        <service
+            android:name="org.caiqizhao.service.AddContacksService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="org.caiqizhao.service.NewFriendWaitingService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
