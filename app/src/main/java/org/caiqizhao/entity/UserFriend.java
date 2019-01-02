@@ -11,6 +11,7 @@ public class UserFriend implements Comparable<String>{
     private String friend_name;   //好友昵称
     private int friend_photo_src;
 
+
     public static List<UserFriend> userFriendList = new ArrayList<UserFriend>();
 
     public static List<UserFriend> uer_add_friend = new ArrayList<UserFriend>();

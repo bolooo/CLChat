@@ -32,6 +32,7 @@ import org.caiqizhao.service.LoginService;
 import org.caiqizhao.util.PasswordMD5Util;
 import org.caiqizhao.util.ToastUtil;
 import org.caiqizhao.util.UsernameAndPasswordByIs;
+import org.caiqizhao.util.VariableUtil;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -194,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 JsonArray friend_add_user = jsonObject.getAsJsonArray("friend_add_user");
                 if(friend_add_user!=null){
                     UserFriend.friend_add_user = gson.fromJson(friend_add_user,new TypeToken<List<UserFriend>>(){}.getType());
+                    VariableUtil.frien_add_user = UserFriend.friend_add_user.size();
                 }
 
                 //得到用户信息

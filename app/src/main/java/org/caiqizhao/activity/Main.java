@@ -24,7 +24,9 @@ import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.fragment.Me;
 import org.caiqizhao.service.LogoutService;
+import org.caiqizhao.service.NewFriendWaitingService;
 import org.caiqizhao.service.getFriendMessgaeIntentService;
+import org.caiqizhao.util.VariableUtil;
 
 import q.rorbin.badgeview.QBadgeView;
 
@@ -32,13 +34,14 @@ public class Main extends AppCompatActivity {
     private Toolbar toolbar;  //toolbar顶部菜单栏
     BottomNavigationView navigation;   //底部菜单栏
     public static Handler handler ;
-    QBadgeView badgeView ;
+    QBadgeView badgeView_chat,new_friend ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        badgeView = new QBadgeView(Main.this); //消息角标
+        badgeView_chat = new QBadgeView(Main.this); //消息角标
+        new_friend = new QBadgeView(Main.this);
         handler = new MessageUtil();
         replaceFragment(new Chats());   //初始化fragment
 
@@ -48,9 +51,21 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        badgeView_chat.bindTarget(navigation.findViewById(R.id.navigation_Chats));
+        badgeView_chat.setBadgeNumber(MessageListAdepter.count);
+        badgeView_chat.setBadgeTextColor(Color.RED);
+        badgeView_chat.setBadgeTextColor(Color.WHITE);
+        badgeView_chat.setBadgeGravity(Gravity.END | Gravity.TOP);
+
+
         //启动后台服务接收好友聊天消息
-        Intent intent = new Intent(this,getFriendMessgaeIntentService.class) ;
-        startService(intent);
+        Intent getMessage = new Intent(this,getFriendMessgaeIntentService.class) ;
+        startService(getMessage);
+
+        //开启后台服务接收好友添加消息
+        Intent getNewFriend = new Intent(this,NewFriendWaitingService.class);
+        startService(getNewFriend);
+
 
     }
 
@@ -138,7 +153,7 @@ public class Main extends AppCompatActivity {
     public void newfriendlayoutclick(View view) {
         switch (view.getId()) {
             case R.id.new_friend_layout:
-                Intent newfriend = new Intent(Main.this, AddContacksActivity.class);
+                Intent newfriend = new Intent(Main.this, NewFriend.class);
                 startActivity(newfriend);
         }
     }
@@ -161,15 +176,19 @@ public class Main extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0x001:
-                    System.out.println(MessageListAdepter.count);
-                    badgeView.bindTarget(navigation.findViewById(R.id.navigation_Chats));
-                    badgeView.setBadgeNumber(MessageListAdepter.count);
-                    badgeView.setBadgeTextColor(Color.RED);
-                    badgeView.setBadgeTextColor(Color.WHITE);
-                    badgeView.setBadgeGravity(Gravity.END | Gravity.TOP);
+                    badgeView_chat.bindTarget(navigation.findViewById(R.id.navigation_Chats));
+                    badgeView_chat.setBadgeNumber(MessageListAdepter.count);
+                    badgeView_chat.setBadgeTextColor(Color.RED);
+                    badgeView_chat.setBadgeTextColor(Color.WHITE);
+                    badgeView_chat.setBadgeGravity(Gravity.END | Gravity.TOP);
                     break;
 
                 case 0x002:
+                    badgeView_chat.bindTarget(navigation.findViewById(R.id.navigation_Contacts));
+                    badgeView_chat.setBadgeNumber(VariableUtil.frien_add_user);
+                    badgeView_chat.setBadgeTextColor(Color.RED);
+                    badgeView_chat.setBadgeTextColor(Color.WHITE);
+                    badgeView_chat.setBadgeGravity(Gravity.END | Gravity.TOP);
                     break;
 
             }
