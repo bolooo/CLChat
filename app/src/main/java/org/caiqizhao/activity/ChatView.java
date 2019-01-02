@@ -76,6 +76,7 @@ public class ChatView extends AppCompatActivity {
             message.setMessage_state(1);
         }
         Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
+        updateMessageState.putExtra("friend_id", friend.getFriend_id());
         startService(updateMessageState);
     }
 
@@ -93,20 +94,22 @@ public class ChatView extends AppCompatActivity {
                         .build();
                 try {
                     Response response = client.newCall(request).execute();
-                    String str = response.body().string();
+                    final String str = response.body().string();
 
                     if (!str.equals("0")){
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
+                                friend_ip = str;
+                                send.setOnClickListener(new sendIPOnClick());
                             }
                         });
-                        friend_ip = str;
+
                     }else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 send.setOnClickListener(new sendNotIPOnClick());
                             }
                         });
@@ -213,6 +216,7 @@ public class ChatView extends AppCompatActivity {
                             out.write(json.getBytes());
                             out.flush();
                             out.close();
+                            socket.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -237,6 +241,7 @@ public class ChatView extends AppCompatActivity {
             msgRecyclerView.scrollToPosition(msgList.size() - 1);
             inputText.setText("");
             Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
+            updateMessageState.putExtra("friend_id", friend.getFriend_id());
             startService(updateMessageState);
         }
     }

@@ -17,10 +17,13 @@
         android:layout_height="80dp"
         android:orientation="horizontal">
 
-        <ImageButton
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/photo"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/lfile_white"/>
 
         <LinearLayout
             android:layout_width="match_parent"

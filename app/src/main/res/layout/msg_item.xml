@@ -14,15 +14,15 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="0.5"
             android:layout_gravity="left|center"
-        android:src="@drawable/reciever"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"/>
+            android:src="@drawable/photo"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/lfile_white"/>
 
         <com.xujiaji.happybubble.BubbleLayout
             android:layout_width="wrap_content"
@@ -79,9 +79,9 @@
             android:layout_height="50dp"
             android:layout_weight="0.5"
             android:layout_gravity="right|center"
-            android:src="@drawable/sender"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
+            android:src="@drawable/photo"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/lfile_white"/>
         
     </LinearLayout>
 </LinearLayout>

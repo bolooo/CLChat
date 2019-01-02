@@ -66,6 +66,7 @@ public class getFriendMessageService extends Service {
                 while ((size = inputStream.read(bytes)) != -1) {
                     baos.write(bytes, 0, size);
                 }
+                inputStream.close();
                 socket.close();
                 String str = baos.toByteArray().toString();
                 Message mag = new Gson().fromJson(str,Message.class);

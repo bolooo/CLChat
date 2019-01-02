@@ -50,7 +50,7 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = new Intent(Main.this,getFriendMessageService.class);
         bindService(intent,conn,Context.BIND_AUTO_CREATE);
-        friendMessageService.PortListener();
+
     }
 
 
@@ -138,6 +138,7 @@ public class Main extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             friendMessageService =  ((getFriendMessageService.LocalBinder)service).getService();
+            friendMessageService.PortListener();
         }
 
         /***
