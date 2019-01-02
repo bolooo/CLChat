@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import org.caiqizhao.activity.ChatView;
 import org.caiqizhao.entity.Message;
 import org.caiqizhao.entity.User;
+import org.caiqizhao.fragment.Chats;
+import org.caiqizhao.util.Base64Code;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,23 +38,14 @@ public class getFriendMessgaeIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if(serverSocket == null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        System.out.println("进来了");
-                        serverSocket = new ServerSocket(9000);
-                        while (true) {
-                            Socket socket = serverSocket.accept();
-                            System.out.println("来请求了");
-                            new Thread(new getFriendMessageRun(socket)).start();
-                        }
-                    } catch (Exception e) {
-                    }
-                }
-            }).start();
-        }
+        try {
+            serverSocket = new ServerSocket(9000);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                System.out.println("来请求了");
+                new Thread(new getFriendMessageRun(socket)).start();
+            }
+        } catch (Exception e) { }
     }
     private class getFriendMessageRun implements Runnable{
         private Socket socket;
@@ -75,6 +68,7 @@ public class getFriendMessgaeIntentService extends IntentService {
                 socket.close();
                 String str = new String(baos.toByteArray());
                 Message mag = new Gson().fromJson(str,Message.class);
+                mag.setMessage(Base64Code.decode(mag.getMessage()));
                 mag.setPut_id(0);
                 String user_id = mag.getFriend_id();
                 mag.setFriend_id(mag.getUser_id());
@@ -82,19 +76,20 @@ public class getFriendMessgaeIntentService extends IntentService {
                 android.os.Message message = new android.os.Message();
                 Bundle data = new Bundle();
                 data.putString("message", new Gson().toJson(mag));
-                if(!ChatView.friend.getFriend_id().equals(mag.getUser_id())){
+                if(ChatView.friend==null){
                     mag.setMessage_state(0);
                     Message.messageHasMap.get(mag.getFriend_id()).add(mag);
-                    if(ChatView.friend == null){
-                        Intent intent = new Intent();
-                        intent.setAction("com.example.mycloud.UPDATA_MESSAGE");
-                        sendBroadcast(intent);
-                    }
+                    Chats.handler.sendMessage(message);
                 }else {
-                    mag.setMessage_state(1);
-                    message.setData(data);
-                    message.what = 0x001;
-                    ChatView.handler.sendMessage(message);
+                    if(ChatView.friend.getFriend_id().equals(mag.getFriend_id())) {
+                        mag.setMessage_state(1);
+                        message.setData(data);
+                        message.what = 0x001;
+                        ChatView.handler.sendMessage(message);
+                    }else {
+                        mag.setMessage_state(0);
+                        Message.messageHasMap.get(mag.getFriend_id()).add(mag);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

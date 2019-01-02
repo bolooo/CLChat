@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +17,15 @@ import android.widget.EditText;
 import com.example.bolo.chat.R;
 import com.google.gson.Gson;
 
+import org.caiqizhao.adapter.MessageListAdepter;
 import org.caiqizhao.adapter.MsgAdapter;
 import org.caiqizhao.entity.Message;
 import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
+import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.service.UpdateMessageState;
 import org.caiqizhao.service.addMessageService;
+import org.caiqizhao.util.Base64Code;
 import org.caiqizhao.util.VariableUtil;
 
 import java.io.IOException;
@@ -41,7 +45,7 @@ import okhttp3.Response;
 public class ChatView extends AppCompatActivity {
 
 
-    private List<Message> msgList = new ArrayList<>();
+    private List<Message> msgList = null;
     private EditText inputText;
     private Button send;
     private RecyclerView msgRecyclerView;
@@ -59,6 +63,8 @@ public class ChatView extends AppCompatActivity {
         setContentView(R.layout.chatview);
         handler = new MessageUtil();
         msgList = Message.messageHasMap.get(friend.getFriend_id());
+        if(msgList == null)
+            msgList = new ArrayList<Message>();
         getFriendIP();
         setChatView();
         initMessageState();
@@ -69,13 +75,20 @@ public class ChatView extends AppCompatActivity {
      * 更新消息的状态（已读或未读的状态）
      */
     private void initMessageState() {
-        List<Message> messageList = Message.messageHasMap.get(friend.getFriend_id());
-        for(Message message:messageList){
-            message.setMessage_state(1);
+        for(Message message:msgList){
+            if (message.getMessage_state()==0) {
+                message.setMessage_state(1);
+                MessageListAdepter.count--;
+            }
         }
         Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
         updateMessageState.putExtra("friend_id",friend.getFriend_id());
         startService(updateMessageState);
+        if(MessageListAdepter.count==0){
+            android.os.Message m = new android.os.Message();
+            m.what = 0x001;
+            Main.handler.sendMessage(m);
+        }
     }
 
     /**
@@ -147,12 +160,13 @@ public class ChatView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 friend = null;
-                LocalBroadcastManager localBroadcastManager =
-                        LocalBroadcastManager.getInstance(ChatView.this);
-                Intent intent = new Intent("com.example.mycloud.UPDATA_MESSAGE");
-                localBroadcastManager.sendBroadcast(intent);
-                Intent main = new Intent(ChatView.this, Main.class);
-                startActivity(main);
+                if(!msgList.isEmpty()&&Message.messageHasMap.get(friend.getFriend_id())==null){
+                    Message.messageHasMap.put(friend.getFriend_id(),msgList);
+                }
+                msgList = null;
+                friend_ip = "";
+                android.os.Message message = new android.os.Message();
+                Chats.handler.sendMessage(message);
                 ChatView.this.finish();
             }
         });
@@ -205,6 +219,7 @@ public class ChatView extends AppCompatActivity {
                 msgRecyclerView.scrollToPosition(msgList.size() - 1);
                 inputText.setText("");
                 Intent intent = new Intent(ChatView.this, addMessageService.class);
+                msg.setMessage(Base64Code.encode(msg.getMessage()));
                 final String json = new Gson().toJson(msg);
                 intent.putExtra("json", json);
                 startService(intent);
@@ -241,7 +256,6 @@ public class ChatView extends AppCompatActivity {
                 msgList.add(masssage);
                 adapter.notifyItemInserted(msgList.size() - 1);
                 msgRecyclerView.scrollToPosition(msgList.size() - 1);
-                inputText.setText("");
                 Intent updateMessageState = new Intent(ChatView.this, UpdateMessageState.class);
                 updateMessageState.putExtra("friend_id", friend.getFriend_id());
                 startService(updateMessageState);

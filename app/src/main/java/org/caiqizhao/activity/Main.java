@@ -1,7 +1,10 @@
 package org.caiqizhao.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,34 +12,48 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.bolo.chat.R;
 
+import org.caiqizhao.adapter.MessageListAdepter;
 import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.fragment.Me;
 import org.caiqizhao.service.LogoutService;
 import org.caiqizhao.service.getFriendMessgaeIntentService;
 
+import q.rorbin.badgeview.QBadgeView;
+
 public class Main extends AppCompatActivity {
-    private Toolbar toolbar;
+    private Toolbar toolbar;  //toolbar顶部菜单栏
+    BottomNavigationView navigation;   //底部菜单栏
+    public static Handler handler ;
+    QBadgeView badgeView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        replaceFragment(new Chats());
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        badgeView = new QBadgeView(Main.this); //消息角标
+        handler = new MessageUtil();
+        replaceFragment(new Chats());   //初始化fragment
+
+        navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        //启动后台服务接收好友聊天消息
         Intent intent = new Intent(this,getFriendMessgaeIntentService.class) ;
         startService(intent);
 
     }
+
 
 
     /**
@@ -95,6 +112,12 @@ public class Main extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
+    /**
+     * toolbar(添加好友)
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -107,6 +130,11 @@ public class Main extends AppCompatActivity {
         return true;
     }
 
+
+    /**
+     * 新好友列表（被添加）
+     * @param view
+     */
     public void newfriendlayoutclick(View view) {
         switch (view.getId()) {
             case R.id.new_friend_layout:
@@ -116,20 +144,35 @@ public class Main extends AppCompatActivity {
     }
 
 
-
-
-
     //销毁活动时传递退出消息给服务器
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        System.out.println("用户销毁了");
 
         //通知服务器退出账户
         Intent intent = new Intent(this,LogoutService.class);
         startService(intent);
     }
 
+    private class MessageUtil extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0x001:
+                    System.out.println(MessageListAdepter.count);
+                    badgeView.bindTarget(navigation.findViewById(R.id.navigation_Chats));
+                    badgeView.setBadgeNumber(MessageListAdepter.count);
+                    badgeView.setBadgeTextColor(Color.RED);
+                    badgeView.setBadgeTextColor(Color.WHITE);
+                    badgeView.setBadgeGravity(Gravity.END | Gravity.TOP);
+                    break;
 
+                case 0x002:
+                    break;
+
+            }
+        }
+    }
 }

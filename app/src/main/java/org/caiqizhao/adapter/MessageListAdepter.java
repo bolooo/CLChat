@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.bolo.chat.R;
 
 import org.caiqizhao.activity.ChatView;
+import org.caiqizhao.activity.Main;
 import org.caiqizhao.entity.Message;
 import org.caiqizhao.entity.MessageListEntity;
 
@@ -25,6 +26,7 @@ import q.rorbin.badgeview.QBadgeView;
 
 public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.ViewHolder> {
     private List<MessageListEntity> messageListEntityList;
+    public static int count = 0;
 
     public MessageListAdepter(List<MessageListEntity> list){
         this.messageListEntityList = list;
@@ -61,12 +63,18 @@ public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.
         for (Message message :messageList){
             if(message.getMessage_state() == 0){
                 sum++;
+                count = count + sum;
             }
         }
         if (sum!=0){
+            holder.badgeView.bindTarget(holder.friend_tupian);
             holder.badgeView.setBadgeNumber(sum);
             holder.badgeView.setBadgeTextColor(Color.RED);
+            holder.badgeView.setBadgeTextColor(Color.WHITE);
             holder.badgeView.setBadgeGravity(Gravity.END|Gravity.TOP);
+            android.os.Message m = new android.os.Message();
+            m.what = 0x001;
+            Main.handler.sendMessage(m);
         }
         holder.friend_message.setText(messageListEntity.getMessageList()
                 .get(index).getMessage());
@@ -98,7 +106,7 @@ public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.
             message_time = itemView.findViewById(R.id.message_time);
             friend_name = itemView.findViewById(R.id.firend_name);
             friend_tupian = itemView.findViewById(R.id.friend_tupiao);
-            badgeView = new QBadgeView(friend_tupian.getContext());
+            badgeView = new QBadgeView(chatView.getContext());
 
         }
     }
