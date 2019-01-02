@@ -51,8 +51,8 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        badgeView_chat.bindTarget(navigation.findViewById(R.id.navigation_Chats));
-        badgeView_chat.setBadgeNumber(MessageListAdepter.count);
+        badgeView_chat.bindTarget(navigation.findViewById(R.id.navigation_Contacts));
+        badgeView_chat.setBadgeNumber(VariableUtil.frien_add_user);
         badgeView_chat.setBadgeTextColor(Color.RED);
         badgeView_chat.setBadgeTextColor(Color.WHITE);
         badgeView_chat.setBadgeGravity(Gravity.END | Gravity.TOP);
