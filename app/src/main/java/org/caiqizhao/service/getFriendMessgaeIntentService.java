@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -78,6 +79,9 @@ public class getFriendMessgaeIntentService extends IntentService {
                 data.putString("message", new Gson().toJson(mag));
                 if(ChatView.friend==null){
                     mag.setMessage_state(0);
+                    if(Message.messageHasMap.get(mag.getFriend_id()) == null){
+                        Message.messageHasMap.put(mag.getFriend_id(),new ArrayList<Message>());
+                    }
                     Message.messageHasMap.get(mag.getFriend_id()).add(mag);
                     Chats.handler.sendMessage(message);
                 }else {
@@ -88,6 +92,9 @@ public class getFriendMessgaeIntentService extends IntentService {
                         ChatView.handler.sendMessage(message);
                     }else {
                         mag.setMessage_state(0);
+                        if(Message.messageHasMap.get(mag.getFriend_id()) == null){
+                            Message.messageHasMap.put(mag.getFriend_id(),new ArrayList<Message>());
+                        }
                         Message.messageHasMap.get(mag.getFriend_id()).add(mag);
                     }
                 }

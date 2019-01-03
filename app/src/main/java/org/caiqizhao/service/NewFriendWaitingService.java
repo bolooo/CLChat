@@ -105,7 +105,7 @@ public class NewFriendWaitingService extends IntentService {
                     }
                 }
 
-                Thread.sleep(3000);
+                Thread.sleep(5000);
             } catch (Exception e) {
                 e.printStackTrace();
             }

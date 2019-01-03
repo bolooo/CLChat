@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +20,14 @@ import android.view.View;
 
 import com.example.bolo.chat.R;
 
+import org.caiqizhao.adapter.FriendListAdapter;
 import org.caiqizhao.adapter.MessageListAdepter;
+import org.caiqizhao.entity.User;
+import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.fragment.Chats;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.fragment.Me;
+import org.caiqizhao.service.DeleteFriendIntentService;
 import org.caiqizhao.service.LogoutService;
 import org.caiqizhao.service.NewFriendWaitingService;
 import org.caiqizhao.service.getFriendMessgaeIntentService;
@@ -194,4 +199,6 @@ public class Main extends AppCompatActivity {
             }
         }
     }
+
+
 }

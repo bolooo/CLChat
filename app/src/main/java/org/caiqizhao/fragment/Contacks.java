@@ -1,6 +1,7 @@
 package org.caiqizhao.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,8 +12,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -20,6 +23,9 @@ import android.widget.LinearLayout;
 import com.example.bolo.chat.R;
 
 import org.caiqizhao.adapter.FriendListAdapter;
+import org.caiqizhao.entity.User;
+import org.caiqizhao.entity.UserFriend;
+import org.caiqizhao.service.DeleteFriendIntentService;
 import org.caiqizhao.util.VariableUtil;
 
 import q.rorbin.badgeview.QBadgeView;
@@ -59,8 +65,9 @@ public class Contacks extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         friendlist.setLayoutManager(linearLayoutManager);
         friendlist.findViewById(R.id.friendlist_photo);
-        FriendListAdapter friendListAdapter = new FriendListAdapter();
+        FriendListAdapter friendListAdapter = new FriendListAdapter(getContext());
         friendlist.setAdapter(friendListAdapter);
+
     }
 
     @Nullable
@@ -84,5 +91,6 @@ public class Contacks extends Fragment {
             initAdapter();
         }
     }
+
 
 }

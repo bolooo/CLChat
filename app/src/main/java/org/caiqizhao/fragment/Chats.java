@@ -25,6 +25,7 @@ import org.caiqizhao.entity.MessageListEntity;
 import org.caiqizhao.entity.UserFriend;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -67,8 +68,16 @@ public class Chats extends Fragment {
     private void initAdepter() {
         messageListEntities.clear();
         Set<String> strings = Message.messageHasMap.keySet();
+        System.out.println(strings);
+        System.out.println(UserFriend.userFriendList);
         for(String friend_id:strings) {
-            int i = Collections.binarySearch(UserFriend.userFriendList,friend_id); //查询朋友id在用户通讯录中的索引号
+            int i = -1;
+            //查询朋友id在用户通讯录中的索引号
+            for (int j =0;j<UserFriend.userFriendList.size();j++){
+                if(UserFriend.userFriendList.get(j).getFriend_id().equals(friend_id)){
+                    i = j;
+                }
+            }
             if (i >= 0) {
                 MessageListEntity messageListEntity = new MessageListEntity(UserFriend.userFriendList.get(i),
                         Message.messageHasMap.get(friend_id));

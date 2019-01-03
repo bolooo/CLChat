@@ -9,6 +9,7 @@ import android.os.Message;
 import com.example.bolo.chat.MainActivity;
 
 import org.caiqizhao.activity.Register;
+import org.caiqizhao.util.VariableUtil;
 
 import java.io.IOException;
 
@@ -43,7 +44,7 @@ public class RegisterService extends Service {
                         .add("password",password)
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://192.168.253.5:8080/register")
+                        .url(VariableUtil.Service_IP +"register")
                         .post(requestBody)
                         .build();
                 try {

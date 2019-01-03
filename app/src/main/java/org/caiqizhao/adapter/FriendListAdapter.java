@@ -1,9 +1,15 @@
 package org.caiqizhao.adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -11,7 +17,13 @@ import android.widget.TextView;
 import com.example.bolo.chat.R;
 
 import org.caiqizhao.activity.ChatView;
+import org.caiqizhao.activity.Main;
+import org.caiqizhao.entity.Message;
+import org.caiqizhao.entity.User;
 import org.caiqizhao.entity.UserFriend;
+import org.caiqizhao.fragment.Chats;
+import org.caiqizhao.fragment.Contacks;
+import org.caiqizhao.service.DeleteFriendIntentService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +32,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
     private List<UserFriend> FriendList;
+    Context context;
 
-    public FriendListAdapter() {
+    public FriendListAdapter(Context context) {
+        this.context = context;
         FriendList = UserFriend.userFriendList;
     }
 
@@ -40,6 +54,8 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
                 parent.getContext().startActivity(intent);
             }
         });
+
+
         return holder;
     }
 

@@ -222,8 +222,15 @@ public class ChatView extends AppCompatActivity {
                 msgRecyclerView.scrollToPosition(msgList.size() - 1);
                 inputText.setText("");
                 Intent intent = new Intent(ChatView.this, addMessageService.class);
-                msg.setMessage(Base64Code.encode(msg.getMessage()));
-                final String json = new Gson().toJson(msg);
+                final Message mag = new Message();
+                mag.setMessage(Base64Code.encode(msg.getMessage()));
+                mag.setMessage_state(msg.getMessage_state());
+                mag.setUser_id(msg.getUser_id());
+                mag.setPut_id(msg.getPut_id());
+                mag.setTime(msg.getTime());
+                mag.setFriend_id(msg.getFriend_id());
+                mag.setMessage_no(msg.getMessage_no());
+                String json = new Gson().toJson(msg);
                 intent.putExtra("json", json);
                 startService(intent);
                 new Thread(new Runnable() {
@@ -232,8 +239,7 @@ public class ChatView extends AppCompatActivity {
                         try {
                             Socket socket = new Socket(friend_ip,9000);
                             OutputStream out = socket.getOutputStream();
-                            System.out.println(json);
-                            out.write(json.getBytes());
+                            out.write(new Gson().toJson(mag).getBytes());
                             out.flush();
                             out.close();
                             socket.close();
