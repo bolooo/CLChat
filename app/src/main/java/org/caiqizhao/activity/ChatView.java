@@ -230,7 +230,7 @@ public class ChatView extends AppCompatActivity {
                 mag.setTime(msg.getTime());
                 mag.setFriend_id(msg.getFriend_id());
                 mag.setMessage_no(msg.getMessage_no());
-                String json = new Gson().toJson(msg);
+                String json = new Gson().toJson(mag);
                 intent.putExtra("json", json);
                 startService(intent);
                 new Thread(new Runnable() {

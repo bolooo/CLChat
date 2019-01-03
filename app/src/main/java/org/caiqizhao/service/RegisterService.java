@@ -44,7 +44,7 @@ public class RegisterService extends Service {
                         .add("password",password)
                         .build();
                 Request request = new Request.Builder()
-                        .url(VariableUtil.Service_IP +"register")
+                        .url(VariableUtil.Service_IP+"register")
                         .post(requestBody)
                         .build();
                 try {

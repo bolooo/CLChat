@@ -29,6 +29,7 @@ public class DeleteFriendIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        System.out.println("fachu");
         final String friend_id = intent.getStringExtra("friend_id");
         final String user_id = intent.getStringExtra("user_id");
         OkHttpClient client = new OkHttpClient();
