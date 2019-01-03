@@ -9,10 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+
 import android.view.View;
 
 import com.example.bolo.chat.R;
 
+import org.caiqizhao.entity.UserFriend;
 import org.caiqizhao.fragment.Contacks;
 import org.caiqizhao.util.VariableUtil;
 
@@ -27,6 +29,7 @@ import org.caiqizhao.adapter.NewFriendListAdapter;
      @Override
      protected void onCreate(@Nullable Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
+         System.out.println("进来了"+UserFriend.friend_add_user);
          setContentView(R.layout.activity_new_friend);
          VariableUtil.frien_add_user = 0;
          Message message = new Message();

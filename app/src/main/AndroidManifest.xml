@@ -90,6 +90,8 @@
         <service
             android:name="org.caiqizhao.service.NewFriendWaitingService"
             android:exported="false"></service>
+        <service android:name="org.caiqizhao.service.DeleteFriendIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

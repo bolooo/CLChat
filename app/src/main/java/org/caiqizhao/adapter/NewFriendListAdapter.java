@@ -62,6 +62,7 @@ public class NewFriendListAdapter extends RecyclerView.Adapter<NewFriendListAdap
                 holder.agree.setText("已添加");
                 holder.agree.setEnabled(false);
                 holder.disagree.setEnabled(false);
+                UserFriend.friend_add_user.remove(position);
             }
         });
 

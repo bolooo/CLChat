@@ -3,7 +3,9 @@ package org.caiqizhao.adapter;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,9 +22,22 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
     private List<UserFriend> FriendList;
+    private int mPostion = -1;
 
     public FriendListAdapter() {
         FriendList = UserFriend.userFriendList;
+    }
+
+    public int getmPostion() {
+        return mPostion;
+    }
+
+    public void setmPostion(int mPostion) {
+        this.mPostion = mPostion;
+    }
+
+    public void removeItem(int position) {
+        FriendList.remove(position);
     }
 
     @NonNull
@@ -40,6 +55,16 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
                 parent.getContext().startActivity(intent);
             }
         });
+
+        holder.friendView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                setmPostion(holder.getAdapterPosition());
+               // mPostion = getmPostion();
+                return false;
+            }
+        });
+
         return holder;
     }
 
@@ -54,7 +79,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
         return FriendList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         private View friendView;
         private CircleImageView friend_photo;
         private TextView friend_name;
@@ -64,7 +89,11 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
             friendView = itemView;
             friend_photo = itemView.findViewById(R.id.friendlist_photo);
             friend_name = itemView.findViewById(R.id.friendlist_name);
+            itemView.setOnCreateContextMenuListener(this);
+        }
 
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
         }
     }
 }

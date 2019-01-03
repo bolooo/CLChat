@@ -57,7 +57,6 @@ public class MessageListAdepter extends RecyclerView.Adapter<MessageListAdepter.
 //        holder.friend_tupian.setImageResource(fileCloud.getFile_tupian());
         holder.friend_name.setText(messageListEntity.getFriend().getFriend_name());
         int index = messageListEntity.getMessageList().size()-1;
-        System.out.println(messageListEntity.getMessageList());
         List<Message> messageList = messageListEntity.getMessageList();
         int sum = 0;
         for (Message message :messageList){

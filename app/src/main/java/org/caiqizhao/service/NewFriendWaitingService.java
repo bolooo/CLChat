@@ -69,6 +69,7 @@ public class NewFriendWaitingService extends IntentService {
                     if(friendList.size()!=UserFriend.uer_add_friend.size()){
                         UserFriend.uer_add_friend.clear();
                         UserFriend.uer_add_friend = friendList;
+                        friendList = null;
                     }
                 }
 
@@ -83,6 +84,7 @@ public class NewFriendWaitingService extends IntentService {
                         VariableUtil.frien_add_user = friendList.size() - UserFriend.friend_add_user.size();
                         UserFriend.friend_add_user.clear();
                         UserFriend.friend_add_user = friendList;
+                        friendList = null;
                         Message message = new Message();
                         message.what = 0x002;
                         Main.handler.sendMessage(message);
@@ -105,7 +107,7 @@ public class NewFriendWaitingService extends IntentService {
                     }
                 }
 
-                Thread.sleep(3000);
+                Thread.sleep(5000);
             } catch (Exception e) {
                 e.printStackTrace();
             }
