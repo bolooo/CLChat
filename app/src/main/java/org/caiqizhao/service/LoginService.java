@@ -38,7 +38,7 @@ public class LoginService extends Service {
         login = new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpClient client = new OkHttpClient();
+                    OkHttpClient client = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
                         .add("username",username)
                         .add("password",password)
