@@ -188,6 +188,7 @@ public class ChatView extends AppCompatActivity {
                 msg.setMessage_state(1);
                 msg.setUser_id(User.user.getUser_id());
                 msg.setFriend_id(friend.getFriend_id());
+                /*时间格式：xxxx年xx月xx日 HHMM*/
                 msg.setTime(simpleDateFormat.format(new Date()));
                 msg.setMessage(content);
                 msg.setPut_id(1);
