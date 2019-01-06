@@ -230,19 +230,21 @@ public class ChatView extends AppCompatActivity {
                 mag.setTime(msg.getTime());
                 mag.setFriend_id(msg.getFriend_id());
                 mag.setMessage_no(msg.getMessage_no());
-                String json = new Gson().toJson(mag);
+                String json = new Gson().toJson(msg);
                 intent.putExtra("json", json);
                 startService(intent);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
+                            //建立一个套接字向地址为friend_ip，端口为9000的服务器（就是刚刚你那个监听9000端口的服务器）发请求
                             Socket socket = new Socket(friend_ip,9000);
+                            //得到套接字的输出流，这个输出流可以向服务器写东西，对应的服务器的输入流可以读你在这边写的东西
                             OutputStream out = socket.getOutputStream();
                             out.write(new Gson().toJson(mag).getBytes());
-                            out.flush();
-                            out.close();
-                            socket.close();
+                            out.flush();//这个是防止套接字连接缓冲区中有数据没传过去
+                            out.close();//记得用完之后要关闭套接字的输出流
+                            socket.close();//关闭套接字
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

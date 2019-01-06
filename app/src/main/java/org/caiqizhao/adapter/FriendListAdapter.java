@@ -36,10 +36,6 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
         this.mPostion = mPostion;
     }
 
-    public void removeItem(int position) {
-        FriendList.remove(position);
-    }
-
     @NonNull
     @Override
     public FriendListAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {

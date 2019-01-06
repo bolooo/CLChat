@@ -40,10 +40,12 @@ public class getFriendMessgaeIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
-            serverSocket = new ServerSocket(9000);
+            serverSocket = new ServerSocket(9000);  //新建套接字-服务器端。监听本地IP的9000端口
+
+            //进入死循环，不停的监听，套接字-客户端的请求
             while (true) {
-                Socket socket = serverSocket.accept();
-                System.out.println("来请求了");
+                Socket socket = serverSocket.accept();  //堵塞请求，当有请求到来时返回一个可以和客户端通信的套接字
+
                 new Thread(new getFriendMessageRun(socket)).start();
             }
         } catch (Exception e) { }
