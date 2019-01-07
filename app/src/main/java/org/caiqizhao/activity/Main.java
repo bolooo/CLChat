@@ -33,6 +33,8 @@ import org.caiqizhao.service.NewFriendWaitingService;
 import org.caiqizhao.service.getFriendMessgaeIntentService;
 import org.caiqizhao.util.VariableUtil;
 
+import java.io.IOException;
+
 import q.rorbin.badgeview.QBadgeView;
 
 public class Main extends AppCompatActivity {
@@ -168,7 +170,11 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        try {
+            getFriendMessgaeIntentService.serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //通知服务器退出账户
         Intent intent = new Intent(this,LogoutService.class);

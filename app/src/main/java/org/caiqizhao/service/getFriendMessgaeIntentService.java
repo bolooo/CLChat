@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * helper methods.
  */
 public class getFriendMessgaeIntentService extends IntentService {
-    private static ServerSocket serverSocket = null;
+    public static ServerSocket serverSocket = null;
 
     public getFriendMessgaeIntentService() {
         super("getFriendMessgaeIntentService");
@@ -42,14 +42,20 @@ public class getFriendMessgaeIntentService extends IntentService {
         try {
             serverSocket = new ServerSocket(9000);  //新建套接字-服务器端。监听本地IP的9000端口
 
+
             //进入死循环，不停的监听，套接字-客户端的请求
             while (true) {
+                System.out.println("开始监听");
                 Socket socket = serverSocket.accept();  //堵塞请求，当有请求到来时返回一个可以和客户端通信的套接字
 
                 new Thread(new getFriendMessageRun(socket)).start();
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
     private class getFriendMessageRun implements Runnable{
         private Socket socket;
 
@@ -79,6 +85,7 @@ public class getFriendMessgaeIntentService extends IntentService {
                 android.os.Message message = new android.os.Message();
                 Bundle data = new Bundle();
                 data.putString("message", new Gson().toJson(mag));
+                System.out.println(mag);
                 if(ChatView.friend==null){
                     mag.setMessage_state(0);
                     if(Message.messageHasMap.get(mag.getFriend_id()) == null){
